@@ -22,7 +22,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol = Rol.usuario;
 
-    private boolean activo = true;
+    private Boolean activo = true;
 
     public enum Rol { usuario, admin}
 }
