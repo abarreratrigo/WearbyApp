@@ -10,7 +10,8 @@ import java.util.List;
  * usado para ordenar los resultados
  */
 @Data
-public class OutfitResultadoDTO {
+public class OutfitCarruselDTO {
+    private String categoria;
+    private Integer categoriaId;
     private List<PrendaFiltroDTO> prendas;
-    private int puntuacion;
 }
