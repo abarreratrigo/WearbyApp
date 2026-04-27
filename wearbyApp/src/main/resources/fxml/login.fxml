@@ -59,8 +59,7 @@
             <HBox alignment="CENTER" spacing="8">
                 <Label text="¿No tienes cuenta?" />
                 <Button text="Regístrate"
-                        style="-fx-background-color: transparent; -fx-text-fill: #2c2c2c;
-                        -fx-underline: true; -fx-cursor: hand"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2c2c2c; -fx-underline: true; -fx-cursor: hand"
                         onAction="#onIrARegistro" />
             </HBox>
         </VBox>

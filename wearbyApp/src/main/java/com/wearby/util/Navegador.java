@@ -20,7 +20,7 @@ public class Navegador {
 
     public static void navegar(String rutaFxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                Navegador.class.getResource("/com/wearby/fxml/" + rutaFxml)
+                Navegador.class.getResource("/fxml/" + rutaFxml)
         );
 
         Parent root = loader.load();
@@ -29,7 +29,7 @@ public class Navegador {
 
     public static <T> T navegarConControlador (String rutaFxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                Navegador.class.getResource("/com/wearby/fxml/" + rutaFxml)
+                Navegador.class.getResource("/fxml/" + rutaFxml)
         );
 
         Parent root = loader.load();
