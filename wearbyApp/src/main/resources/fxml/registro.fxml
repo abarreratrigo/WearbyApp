@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.HBox?>
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.wearby.controlador.RegistroControlador"
-            prefHeight="800" prefWidth="1200"
-            style="-fx-backgroun-color: #f5f5f5">
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800" prefWidth="1200"
+            style="-fx-background-color: #bed4d2;"
+            stylesheets="@../css/estilos.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wearby.controlador.RegistroControlador">
     <center>
-        <VBox alignment="CENTER" spacing="20"
-              maxWidth="400"
-              styleClass="tarjeta">
+        <VBox alignment="CENTER" maxWidth="400"
+              spacing="20" styleClass="tarjeta">
 
             <padding>
-                <Insets top="40" right="40" bottom="40" left="40" />
+                <Insets bottom="40" left="40" right="40" top="40" />
             </padding>
 
-            <Label text="Wearby" styleClass="titulo" />
-            <Label text="Crea tu cuenta" styleClass="subtitulo" />
+            <!-- Logo -->
+            <ImageView fitHeight="152.0" fitWidth="271.0" preserveRatio="true">
+                <image>
+                    <Image url="@../img/logo.png" />
+                </image>
+            </ImageView>
 
+            <!-- Título -->
+            <Label styleClass="titulo" text="Wearby" />
+            <Label styleClass="subtitulo" text="Crea tu cuenta" />
+
+            <!-- Campos -->
             <VBox spacing="8">
-                <Label text="Nombre"/>
-                <TextField fx:id="nombreField"
-                           promptText="Tu nombre"
-                           styleClass="campo-texto"
-                           prefWidth="320" />
+                <Label style="-fx-text-fill: #102e4e; -fx-font-size: 15px;" text="Nombre" />
+                <TextField fx:id="nombreField" prefWidth="320"
+                           promptText="Tu nombre" styleClass="campo-texto" />
             </VBox>
 
             <VBox spacing="8">
-                <Label text="Email"/>
-                <TextField fx:id="emailField"
-                           promptText="tu@email.com"
-                           styleClass="campo-texto"
-                           prefWidth="320" />
+                <Label style="-fx-text-fill: #102e4e; -fx-font-size: 15px;" text="Email" />
+                <TextField fx:id="emailField" prefWidth="320"
+                           promptText="tu@email.com" styleClass="campo-texto" />
             </VBox>
 
             <VBox spacing="8">
-                <Label text="Contraseña" />
-                <PasswordField fx:id="contrasenaField"
-                           promptText="Contraseña"
-                           styleClass="campo-texto"
-                           prefWidth="320" />
+                <Label style="-fx-text-fill: #102e4e; -fx-font-size: 15px;" text="Contraseña" />
+                <PasswordField fx:id="contrasenaField" prefWidth="320"
+                               promptText="Contraseña" styleClass="campo-texto" />
             </VBox>
 
             <VBox spacing="8">
-                <Label text="Confirmar contraseña"/>
-                <PasswordField fx:id="confirmarField"
-                           promptText="Repite la contraseña"
-                           styleClass="campo-texto"
-                           prefWidth="320" />
+                <Label style="-fx-text-fill: #102e4e; -fx-font-size: 15px;"
+                       text="Confirmar contraseña" />
+                <PasswordField fx:id="confirmarField" prefWidth="320"
+                               promptText="Repite la contraseña" styleClass="campo-texto" />
             </VBox>
 
+            <!-- Mensaje de error -->
             <Label fx:id="errorLabel"
-                   text=""
-                   style="-fx-text-fill: #e74c3c; -fx-font-size: 13px" />
+                   style="-fx-text-fill: #667987; -fx-font-size: 15px;"
+                   text="" />
 
-            <Button fx:id="registroBtn"
-                    text="Crear cuenta"
-                    styleClass="btn-primary"
-                    prefWidth="320"
-                    onAction="#onRegistro" />
+            <!-- Botón registro -->
+            <Button fx:id="registroBtn" onAction="#onRegistro" prefWidth="320"
+                    styleClass="btn-primary" text="Crear cuenta"
+                    textAlignment="CENTER"
+                    style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
-            <Separator />
+            <Separator style="-fx-background-color: #bed4d2;" />
 
+            <!-- Ir a login -->
             <HBox alignment="CENTER" spacing="8">
-                <Label text="¿Ya tienes cuenta?" />
-                <Button text="Inicia sesión"
-                        style = "-fx-background-color: transparent; -fx-text-fill: #2c2c2c; -fx-underline: true; -fx-cursor: hand "
-                        onAction="#onIrALogin"/>
+                <Label style="-fx-text-fill: #667987; -fx-font-size: 15px;"
+                       text="¿Ya tienes cuenta?" />
+                <Button onAction="#onIrALogin"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #a8d5b6;
+                               -fx-underline: true;
+                               -fx-cursor: hand;
+                               -fx-font-size: 16px;
+                               -fx-font-weight: bold;"
+                        text="Inicia sesión" />
             </HBox>
         </VBox>
     </center>
