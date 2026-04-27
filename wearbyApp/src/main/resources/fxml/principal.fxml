@@ -1,8 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
-<VBox xmlns:fx="http://javafx.com/fxml" prefHeight="800" prefWidth="1200"
-      style="-fx-alignment: center;">
-    <Label text="Pantalla principal - En construcción"
-           style="-fx-font-size: 24px;"/>
-</VBox>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.wearby.controlador.PrincipalControlador"
+            prefHeight="800" prefWidth="1200"
+            style="-fx-background-color: #f5f5f5;">
+
+    <!-- Barra lateral izquierda -->
+    <left>
+        <VBox prefWidth="220"
+              style="-fx-background-color: #2c2c2c; -fx-padding: 0;">
+
+            <!-- Logo / nombre -->
+            <VBox alignment="CENTER" prefHeight="80"
+                  style="-fx-background-color: #1a1a1a;">
+                <Label text="Wearby"
+                       style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" />
+            </VBox>
+
+            <!-- Nombre del usuario -->
+            <VBox alignment="CENTER" prefHeight="60"
+                  style="-fx-background-color: #222222">
+                <Label fx:id="nombreUsuarioLabel"
+                       text=""
+                       style="-fx-text-fill: #aaaaaa; -fx-font-size: 13px;" />
+            </VBox>
+
+            <Separator style="-fx-background-color: #444444;" />
+
+            <!-- Botones de navegación -->
+            <Button fx:id="btnArmario"
+                    text="Mi armario"
+                    styleClass="nav-boton-activo"
+                    prefWidth="220"
+                    onAction="#onArmario" />
+
+            <Button fx:id="btnFavoritos"
+                    text=" Favoritos"
+                    styleClass="nav-boton"
+                    prefWidth="220"
+                    onAction="#onFavoritos" />
+
+            <Button fx:id="btnOutfits"
+                    text="Generar outfits"
+                    styleClass="nav-boton"
+                    prefWidth="220"
+                    onAction="#onOutfits" />
+
+            <Button fx:id="btnPerfil"
+                    text="Mi perfil"
+                    styleClass="nav-boton"
+                    prefWidth="220"
+                    onAction="#onPerfil" />
+
+            <!-- Espaciador -->
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Separator style="-fx-background-color: #444444;" />
+
+            <Button text="Cerrar sesión"
+                    style="-fx-background-color: transparent; -fx-text-fill: #aaaaaa; -fx-font-size: 13px; -fx-padding: 12 20 12 20; -fx-cursor: hand; -fx-alignment: center-left;"
+                    prefWidth="220"
+                    onAction="#onCerrarSesion" />
+
+        </VBox>
+    </left>
+
+    <!-- Área de contenido central -->
+    <center>
+        <StackPane fx:id="contenidoCentral"
+                   style="-fx-background-color: #f5f5f5">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30" />
+            </padding>
+        </StackPane>
+    </center>
+</BorderPane>
