@@ -14,14 +14,14 @@ public class MainApp extends Application {
         Navegador.setStagePrincipal(stage);
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/wearby/fxml/login.fxml")
+                getClass().getResource("/fxml/login.fxml")
         );
 
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 1200, 800);
         scene.getStylesheets().add(
-                getClass().getResource("/com/wearby/css/estilos.css").toExternalForm()
+                getClass().getResource("/css/estilos.css").toExternalForm()
         );
 
         stage.setTitle("Wearby");
