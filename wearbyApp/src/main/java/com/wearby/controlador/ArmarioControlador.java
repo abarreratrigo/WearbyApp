@@ -71,9 +71,7 @@ public class ArmarioControlador implements Initializable {
                     filtroTemporadaCombo.setValue("Todas");
                 });
             } catch (Exception e) {
-                Platform.runLater(() -> {
-                    Alertas.error("Error", "No se pudieron cargar los filtros");
-                });
+                Platform.runLater(() -> Alertas.error("Error", "No se pudieron cargar los filtros"));
             }
         }).start();
     }
@@ -86,9 +84,7 @@ public class ArmarioControlador implements Initializable {
                 );
                 Platform.runLater(() -> mostrarPrendas(todasLasPrendas));
             } catch (Exception e) {
-                Platform.runLater(() -> {
-                    Alertas.error("Error", "No se han podido cargar las prendas");
-                });
+                Platform.runLater(() -> Alertas.error("Error", "No se han podido cargar las prendas"));
             }
         }).start();
     }
@@ -111,7 +107,7 @@ public class ArmarioControlador implements Initializable {
         tarjeta.setPadding(new Insets(12));
         tarjeta.setAlignment(Pos.TOP_CENTER);
         tarjeta.setStyle("-fx-background-color: white; -fx-background-radius: 10; " +
-                " -fx-effect: dropshadow(gausian, rgba(0,0,0,0.1), 8, 0, 0, 2);");
+                " -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);");
 
         ImageView imageView = new ImageView();
         imageView.setFitWidth(156);
