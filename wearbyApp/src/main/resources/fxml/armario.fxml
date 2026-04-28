@@ -6,9 +6,57 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../css/estilos.css"
+            fx:controller="com.wearby.controlador.ArmarioControlador">
 
-</AnchorPane>
+    <!-- Barra superior -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16"
+              style="-fx-padding: 0 0 20 0">
+            <Label text="Mi Armario"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text=" + AÑADIR PRENDA"
+                    styleClass="btnPrimary"
+                    onAction="#onAnadirPrenda" />
+        </HBox>
+    </top>
+
+    <!-- Filtros -->
+    <center>
+        <VBox spacing="16">
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <ComboBox fx:id="filtroCategoriaCombo"
+                          promptText="Categoria"
+                          prefWidth="150"
+                          onAction="#onFiltrar" />
+                <ComboBox fx:id="filtroEstiloCombo"
+                          promptText="Estilo"
+                          prefWidth="150"
+                          onAction="#onFiltrar" />
+                <ComboBox fx:id="filtroTemporadaCombo"
+                          promptText="Temporada"
+                          prefWidth="150"
+                          onAction="#onFiltrar" />
+                <Button text="Limpiar filtros"
+                        style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand; -fx-underline: true;"
+                        onAction="#onLimpiarFiltros" />
+            </HBox>
+
+            <!-- Galería de prendas -->
+            <ScrollPane fitToWidth="true"
+                        style="-fx-background-color: transparent; -fx-background: transparent;">
+                <FlowPane fx:id="galeriaPane"
+                          hgap="16" vgap="16"
+                          prefWrapLength="900"
+                          style="-fx-background-color: transparent;">
+                    <padding>
+                        <Insets top="8" right="8" bottom="8" left="8" />
+                    </padding>
+                </FlowPane>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
