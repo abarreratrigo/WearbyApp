@@ -7,6 +7,7 @@ import com.wearby.sesion.SesionUsuario;
 import com.wearby.util.Alertas;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +20,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -221,6 +225,25 @@ public class ArmarioControlador implements Initializable {
 
     @FXML
     private void onAnadirPrenda() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/AnadirPrendaDialogo.fxml")
+            );
 
+            VBox contenido = loader.load();
+            AnadirPrendaControlador controlador = loader.getController();
+
+            //Cuando se guarde correctamente, recargar la galería
+            controlador.setOnGuardadoExitoso(this::cargarPrendas);
+
+            Stage dialogo = new Stage();
+            dialogo.setTitle("Añadir prenda");
+            dialogo.setScene(new javafx.scene.Scene(contenido));
+            dialogo.initOwner(galeriaPane.getScene().getWindow());
+            dialogo.initModality(Modality.WINDOW_MODAL);
+            dialogo.showAndWait();
+        } catch (IOException e) {
+            Alertas.error("Error", "No se puede abrir el diálogo.");
+        }
     }
 }
