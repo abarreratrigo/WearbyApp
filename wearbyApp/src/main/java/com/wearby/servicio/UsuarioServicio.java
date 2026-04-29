@@ -1,10 +1,13 @@
 package com.wearby.servicio;
 
+import com.google.gson.reflect.TypeToken;
 import com.wearby.modelo.Usuario;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,5 +58,22 @@ public class UsuarioServicio extends ApiService{
             return gson.fromJson(respuesta.body().string(), Usuario.class);
         }
         return null;
+    }
+
+    public List<Usuario> getUsuarios() throws IOException {
+        Response r = get("/usuarios/");
+        if (r.isSuccessful() && r.body() != null) {
+            Type tipo = new TypeToken<List<Usuario>>(){}.getType();
+            return gson.fromJson(r.body().string(), tipo);
+        }
+        return List.of();
+    }
+
+    public void toggleActivo(Integer id) throws IOException {
+        put("/usuarios/" + id + "/toggle", "");
+    }
+
+    public void eliminar(Integer id) throws IOException {
+        delete("/usuarios/" + id);
     }
 }

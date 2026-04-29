@@ -54,21 +54,21 @@ public class AdminControlador implements Initializable {
     private void onUsuarios() {
         desactivarTodos();
         btnUsuarios.getStyleClass().setAll("nav-boton-activo");
-        cargarVista("admin-usuarios.fxml");
+        cargarVista("admin_usuarios.fxml");
     }
 
     @FXML
     private void onEstadisticas(){
         desactivarTodos();
         btnEstadisticas.getStyleClass().setAll("nav-boton-activo");
-        cargarVista("admin-estadisticas.fxml");
+        cargarVista("admin_estadisticas.fxml");
     }
 
     @FXML
     private void onCategorias(){
         desactivarTodos();
         btnCategorias.getStyleClass().setAll("nav-boton-activo");
-        cargarVista("admin-categorias.fxml");
+        cargarVista("admin_categorias.fxml");
     }
 
     @FXML
