@@ -39,5 +39,23 @@ public class OutfitServicio extends ApiService {
         }
         return List.of();
     }
+
+    public void guardar(Integer usuarioId, String nombre,
+                        List<Integer> prendaIds) throws IOException{
+        Map<String, Object> datos = new HashMap<>();
+        datos.put("idUsuario", usuarioId);
+        datos.put("nombre", nombre);
+
+        List<Map<String, Integer>> prendas = prendaIds.stream()
+                .map(id -> {
+                    Map<String, Integer> p = new HashMap<>();
+                    p.put("id", id);
+                    return p;
+                })
+                .toList();
+        datos.put("prendas", prendas);
+
+        post("/outfits/guardar", gson.toJson(datos));
+    }
 }
 

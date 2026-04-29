@@ -40,6 +40,8 @@ public class OutfitControlador implements Initializable {
     private final OutfitServicio outfitServicio = new OutfitServicio();
     private final List<Integer> categoriaIdsOpcionales = new ArrayList<>();
 
+    private List<OutfitCarruselDTO> carruselesActuales = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
         cargarFiltros();
@@ -139,6 +141,8 @@ public class OutfitControlador implements Initializable {
                         categoriaIdsOpcionales
                 );
 
+                carruselesActuales = carruseles;
+
                 Platform.runLater(() -> {
                     resultadosBox.getChildren().clear();
                     if(carruseles.isEmpty()) {
@@ -151,6 +155,13 @@ public class OutfitControlador implements Initializable {
                     for (OutfitCarruselDTO carrusel : carruseles) {
                         resultadosBox.getChildren().add(crearCarrusel(carrusel));
                     }
+                    Button btnGuardar = new Button("Guardar este outfit");
+                    btnGuardar.setStyle("-fx-background-color: #2c2c2c; -fx-text-fill: white; " +
+                            "-fx-padding: 10 20 10 20; -fx-background-radius: 6; " +
+                            "-fx-cursor: hand; -fx-font-size: 14px;");
+                    btnGuardar.setOnAction(e -> onGuardarOutfit());
+                    resultadosBox.getChildren().add(btnGuardar);
+
                 });
             } catch (Exception e) {
                 Platform.runLater(() -> {
@@ -261,5 +272,41 @@ public class OutfitControlador implements Initializable {
 
         bloque.getChildren().addAll(titulo, navegacion, info, indicadores);
         return bloque;
+    }
+
+    private void onGuardarOutfit(){
+        TextInputDialog dialogo = new TextInputDialog();
+        dialogo.setTitle("Guardar outfit");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Ponle un nombre a este outfit:");
+
+        dialogo.showAndWait().ifPresent(nombre -> {
+            if (nombre.trim().isEmpty()) {
+                Alertas.error("Error", "El nombre no puede estar vacío");
+                return;
+            }
+
+            List<Integer> prendasIds = carruselesActuales.stream()
+                    .flatMap(c -> c.getPrendas().stream())
+                    .map(PrendaFiltroDTO::getId)
+                    .distinct()
+                    .toList();
+
+            new Thread(() -> {
+                try {
+                    outfitServicio.guardar(
+                            SesionUsuario.getInstancia().getId(),
+                            nombre.trim(),
+                            prendasIds
+                    );
+                    Platform.runLater(() ->
+                            Alertas.info("Outfit guardado",
+                                    "El outfit \"" + nombre + "\" se ha guardado correctamente"));
+                } catch (Exception e ){
+                    Platform.runLater(() ->
+                            Alertas.error("Error", "No se ha podido guardar el outfit"));
+                }
+            }).start();
+        });
     }
 }
