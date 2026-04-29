@@ -8,7 +8,8 @@
 
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.wearby.controlador.OufitsControlador">
+            stylesheets="@../css/estilos.css"
+            fx:controller="com.wearby.controlador.OutfitControlador">
 
     <top>
         <VBox spacing="16" style="-fx-padding: 0 0 20 0">

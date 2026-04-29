@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane stylesheets="@../css/estilos.css"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wearby.controlador.PerfilControlador">
 
-</AnchorPane>
+    <top>
+        <Label alignment="TOP_CENTER" prefHeight="48.0" prefWidth="501.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20 0 20 0;" styleClass="titulo" text="Mi Perfil" />
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" maxWidth="500" spacing="20">
+            <padding>
+                <Insets top="20" />
+            </padding>
+
+            <VBox spacing="6" styleClass="tarjeta">
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Información personal" />
+
+                <Label text="Nombre" />
+                <TextField fx:id="nombreField" prefWidth="440" styleClass="campo-texto" />
+
+                <Label text="Email" />
+                <TextField fx:id="emailField" prefWidth="440" styleClass="campo-texto" />
+
+                <Button onAction="#onGuardarPerfil" styleClass="btn-primary" text="Guardar cambios" />
+            </VBox>
+
+            <VBox spacing="6" styleClass="tarjeta">
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Cambiar contraseña" />
+
+                <Label text="Contraseña actual" />
+                <PasswordField fx:id="contrasenaActualField" prefWidth="440" styleClass="campo-texto" />
+
+                <Label text="Nueva contraseña" />
+                <PasswordField fx:id="nuevaContrasenaField" prefWidth="440" styleClass="campo-texto" />
+
+                <Label text="Confirmar nueva contraseña" />
+                <PasswordField fx:id="confirmarContrasenaField" prefWidth="440" styleClass="campo-texto" />
+
+                <Button onAction="#onCambiarContrasena" styleClass="btn-primary" text="Cambiar contraseña" />
+            </VBox>
+
+            <Label fx:id="mensajeLabel" style="-fx-font-size: 13px;" text="" />
+        </VBox>
+    </center>
+</BorderPane>

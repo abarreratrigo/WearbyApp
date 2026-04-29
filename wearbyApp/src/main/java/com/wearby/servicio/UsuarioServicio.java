@@ -42,4 +42,18 @@ public class UsuarioServicio extends ApiService{
         }
         return null;
     }
+
+    public Usuario editarPerfil(Integer id, String nombre,
+                                String email, String contrasena) throws IOException {
+        Map<String, String> datos = new HashMap<>();
+        datos.put("nombre", nombre);
+        datos.put("email", email);
+        if (contrasena != null) datos.put("contrasena", contrasena);
+
+        Response respuesta = put("/usuarios/" + id, gson.toJson(datos));
+        if (respuesta.isSuccessful() && respuesta.body() != null) {
+            return gson.fromJson(respuesta.body().string(), Usuario.class);
+        }
+        return null;
+    }
 }
