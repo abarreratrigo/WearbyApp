@@ -6,9 +6,55 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.wearby.controlador.OufitsControlador">
 
-</AnchorPane>
+    <top>
+        <VBox spacing="16" style="-fx-padding: 0 0 20 0">
+            <Label text="Generar Outfit"
+                   style="-fx-font-size: 22px; -fx-font-weight:bold" />
+
+            <!-- Filtros comunes -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <ComboBox fx:id="estiloCombo" promptText="Estilo" prefWidth="150"/>
+                <ComboBox fx:id="temporadaCombo" promptText="Temporada" prefWidth="150"/>
+                <ComboBox fx:id="formalidadCombo" promptText="Formalidad" prefWidth="150"/>
+            </HBox>
+
+            <!-- Categorías opcionales -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="Añadir categorías opcionales:"
+                       style="-fx-text-fill: #666" />
+                <ComboBox fx:id="categoriaOpcionalCombo"
+                          promptText="Seleccionar categoría"
+                          prefWidth="200" />
+                <Button text="+ Añadir"
+                        styleClass="btn-primary"
+                        onAction="#onAnadirCategoria" />
+            </HBox>
+
+            <!-- Categorias seleccionadas -->
+            <HBox fx:id="categoriasSeleccionadasBox"
+                  spacing="8" alignment="CENTER_LEFT">
+                <Label text="Base: Camiseta + Pantalón"
+                       style="-fx-background-color: #2c2c2c; -fx-text-fill: white; -fx-padding: 4 10 4 10; -fx-background-radius:20; -fx-font-size: 12px" />
+            </HBox>
+
+            <Button text="Generar outfit"
+                    styleClass="btn-primary"
+                    onAction="#onGenerar" />
+        </VBox>
+    </top>
+        <!-- Resultados: carruseles por categoría -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox fx:id="resultadosBox" spacing="24">
+                <padding>
+                    <Insets top="8" bottom="8" />
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
