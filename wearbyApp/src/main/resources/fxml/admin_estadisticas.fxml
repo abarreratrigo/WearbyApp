@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.wearby.controlador.AdminEstadisticasControlador"
+        spacing="24">
+
+    <Label text="Estadísticas generales"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <!-- Tarjeta de métricas -->
+    <HBox spacing="20">
+
+        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
+            <Label text="Usuarios registrados"
+                   style="-fx-text-fill: #666; -fx-font-size: 14px" />
+            <Label fx:id="totalUsuariosLabel"
+                   text="..."
+                   style="-fx-font-size: 36px; -fx-font-weight: bold" />
+        </VBox>
+
+        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
+            <Label text="Prendas en el sistema"
+                   style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+            <Label fx:id="totalPrendasLabel"
+                   text="..."
+                   style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
+            <Label text="Outfits generados"
+                   styleClass="-fx-text-fill: #666; -fx-font-size: 14px;" />
+            <Label fx:id="totalOufitsLabel"
+                   text="..."
+                   style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+        </VBox>
+    </HBox>
+
+    <!-- Tabla de prendas por usuario -->
+    <Label text="Prendas por usuario"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+    <TableView fx:id="tablaPrendasUsuario" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="300" />
+            <TableColumn fx:id="colTotal" text="Total prendas" prefWidth="150" />
+        </columns>
+    </TableView>
+</VBox>
