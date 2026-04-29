@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.wearby.controlador.AdminCategoriasControlador"
+      spacing="20">
+
+    <Label text="Gestión de categorías"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <!-- Selector de tipo -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label text="Tipo:"/>
+        <ComboBox fx:id="tipoCombo" prefWidth="200" onAction="#onCambiarTipo"/>
+    </HBox>
+
+    <!-- Añadir nuevo valor -->
+    <HBox spacing="12" alignment="CENTER_LEFT"
+          style="-fx-background-color: white; -fx-padding: 16;
+                 -fx-background-radius: 10;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+        <TextField fx:id="nuevoValorField"
+                   promptText="Nuevo valor..."
+                   styleClass="campo-texto"
+                   prefWidth="300"/>
+        <Button text="+ Añadir"
+                styleClass="btn-primary"
+                onAction="#onAnadir"/>
+    </HBox>
+
+    <!-- Lista de valores existentes -->
+    <ListView fx:id="listaValores" VBox.vgrow="ALWAYS"/>
+
+</VBox>

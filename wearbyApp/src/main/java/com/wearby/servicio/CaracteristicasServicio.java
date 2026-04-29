@@ -44,5 +44,40 @@ public class CaracteristicasServicio extends ApiService{
         Type tipo = new TypeToken<List<Formalidad>>(){}.getType();
         return gson.fromJson(r.body().string(), tipo);
     }
+
+    public Categoria addCategoria(Categoria categoria) throws IOException {
+        Response r = post("/caracteristicas/categorias", gson.toJson(categoria));
+        if (r.isSuccessful() && r.body() != null)
+            return gson.fromJson(r.body().string(), Categoria.class);
+        return null;
+    }
+
+    public Estilo addEstilo(Estilo estilo) throws IOException {
+        Response r = post("/caracteristicas/estilos", gson.toJson(estilo));
+        if (r.isSuccessful() && r.body() != null)
+            return gson.fromJson(r.body().string(), Estilo.class);
+        return null;
+    }
+
+    public Temporada addTemporada(Temporada temporada) throws IOException {
+        Response r = post("/caracteristicas/temporadas", gson.toJson(temporada));
+        if (r.isSuccessful() && r.body() != null)
+            return gson.fromJson(r.body().string(), Temporada.class);
+        return null;
+    }
+
+    public Color addColor(Color color) throws IOException {
+        Response r = post("/caracteristicas/colores", gson.toJson(color));
+        if (r.isSuccessful() && r.body() != null)
+            return gson.fromJson(r.body().string(), Color.class);
+        return null;
+    }
+
+    public Formalidad addFormalidad(Formalidad formalidad) throws IOException {
+        Response r = post("/caracteristicas/formalidades", gson.toJson(formalidad));
+        if (r.isSuccessful() && r.body() != null)
+            return gson.fromJson(r.body().string(), Formalidad.class);
+        return null;
+    }
 }
 

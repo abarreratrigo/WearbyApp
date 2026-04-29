@@ -34,7 +34,7 @@
 
         <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
             <Label text="Outfits generados"
-                   styleClass="-fx-text-fill: #666; -fx-font-size: 14px;" />
+                   style="-fx-text-fill: #666; -fx-font-size: 14px;" />
             <Label fx:id="totalOufitsLabel"
                    text="..."
                    style="-fx-font-size: 36px; -fx-font-weight: bold;" />
