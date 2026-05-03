@@ -49,6 +49,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 }
