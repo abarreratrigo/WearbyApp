@@ -1,7 +1,9 @@
 package com.wearby.wearby_api.controlador;
 
+import com.wearby.wearby_api.excepciones.PrendaNotFoundException;
 import com.wearby.wearby_api.modelo.Prenda;
 import com.wearby.wearby_api.servicio.PrendaService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("api/prendas")
@@ -53,10 +56,16 @@ public class PrendaController {
         return ResponseEntity.ok(prendaService.toggleFavorito(id));
     }
 
-    //DELETE /api/prendas/{id}
+    // DELETE /api/prendas/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) throws IOException {
-        prendaService.eliminar(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+        try {
+            prendaService.eliminar(id);
+            return ResponseEntity.noContent().build();       // 204
+        } catch (PrendaNotFoundException e) {
+            return ResponseEntity.notFound().build();        // 404
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build(); // 500 solo si falla borrar imagen
+        }
     }
 }

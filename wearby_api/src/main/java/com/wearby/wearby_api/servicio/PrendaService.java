@@ -1,5 +1,6 @@
 package com.wearby.wearby_api.servicio;
 
+import com.wearby.wearby_api.excepciones.PrendaNotFoundException;
 import com.wearby.wearby_api.modelo.Prenda;
 import com.wearby.wearby_api.repositorio.*;
 import lombok.RequiredArgsConstructor;
@@ -100,7 +101,7 @@ public class PrendaService {
 
     public void eliminar(Integer id) throws IOException {
         Prenda prenda = prendaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prenda no encontrada"));
+                .orElseThrow(() -> new PrendaNotFoundException(id));
         imagenService.eliminarImagen(prenda.getImagenUrl());
         prendaRepository.deleteById(id);
     }
