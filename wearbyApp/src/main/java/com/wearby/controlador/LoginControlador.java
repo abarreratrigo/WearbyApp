@@ -68,12 +68,13 @@ public class LoginControlador {
                         loginBtn.setDisable(false);
                     }
                 });
-            } catch (Exception e) {
-                Platform.runLater(() -> {
-                    errorLabel.setText("No se puede conectar con el servidor.");
-                    loginBtn.setDisable(false);
-                });
-            }
+            }  catch (Exception e) {
+            e.printStackTrace(); // añade esto
+            Platform.runLater(() -> {
+                errorLabel.setText("No se puede conectar con el servidor.");
+                loginBtn.setDisable(false);
+            });
+        }
         }).start();
     }
 

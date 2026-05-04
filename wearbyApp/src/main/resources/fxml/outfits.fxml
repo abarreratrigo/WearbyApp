@@ -4,12 +4,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fitToWidth="true"
             stylesheets="@../css/estilos.css"
             fx:controller="com.wearby.controlador.OutfitControlador"
-            style="-fx-background-color: #bed4d2; -fx-padding: 30;">
+            style="-fx-background-color: #bed4d2;
+                   -fx-background: #bed4d2;
+                   -fx-border-color: transparent;">
 
-    <top>
+    <VBox spacing="20" style="-fx-background-color: #bed4d2; -fx-padding: 30;">
+
+        <!-- Panel de filtros -->
         <VBox spacing="14"
               style="-fx-background-color: #f9f9f9;
                     -fx-padding: 20 20 36 20;
@@ -19,42 +24,38 @@
                     -fx-border-width: 1;
                     -fx-effect: dropshadow(gaussian, #102e4e26, 10, 0, 0, 3);">
 
-            <Label text=" Generar Outfit" styleClass="titulo" />
+            <Label text=" Generar Outfit" styleClass="titulo"/>
 
-            <!-- Separador decorativo -->
             <Region prefHeight="1"
-                    style="-fx-background-color: #bed4d2;" />
+                    style="-fx-background-color: #bed4d2;"/>
 
-            <!-- Filtros principales -->
-            <Label text="Filtros" styleClass="label-campo" />
+            <Label text="Filtros" styleClass="label-campo"/>
             <HBox spacing="12" alignment="CENTER_LEFT">
                 <ComboBox fx:id="estiloCombo"
                           promptText="Estilo"
                           prefWidth="160"
-                          styleClass="campo-texto" />
+                          styleClass="campo-texto"/>
                 <ComboBox fx:id="temporadaCombo"
                           promptText="Temporada"
                           prefWidth="160"
-                          styleClass="campo-texto" />
+                          styleClass="campo-texto"/>
                 <ComboBox fx:id="formalidadCombo"
                           promptText="Formalidad"
                           prefWidth="160"
-                          styleClass="campo-texto" />
+                          styleClass="campo-texto"/>
             </HBox>
 
-            <!-- Categorías opcionales -->
-            <Label text="Categorías opcionales" styleClass="label-campo" />
+            <Label text="Categorías opcionales" styleClass="label-campo"/>
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <ComboBox fx:id="categoriaOpcionalCombo"
                           promptText="Seleccionar categoría"
                           prefWidth="220"
-                          styleClass="campo-texto" />
+                          styleClass="campo-texto"/>
                 <Button text="+ Añadir"
                         styleClass="btn-primary"
-                        onAction="#onAnadirCategoria" />
+                        onAction="#onAnadirCategoria"/>
             </HBox>
 
-            <!-- Chips de categorías seleccionadas -->
             <HBox fx:id="categoriasSeleccionadasBox"
                   spacing="8" alignment="CENTER_LEFT">
                 <Label text="Base: Camiseta + Pantalón"
@@ -63,31 +64,22 @@
                               -fx-padding: 4 12 4 12;
                               -fx-background-radius: 20;
                               -fx-font-size: 12px;
-                              -fx-font-weight: bold;" />
+                              -fx-font-weight: bold;"/>
             </HBox>
 
-            <!-- Botón generar -->
             <Button text=" Generar outfit"
                     styleClass="btn-primary"
                     prefWidth="200"
                     prefHeight="42"
-                    onAction="#onGenerar" />
-
+                    onAction="#onGenerar"/>
         </VBox>
-    </top>
 
-    <!-- Resultados -->
-    <center>
-        <ScrollPane fitToWidth="true"
-                    style="-fx-background-color: transparent;
-                           -fx-background: transparent;
-                           -fx-border-color: transparent;">
-            <VBox fx:id="resultadosBox" spacing="20">
-                <padding>
-                    <Insets top="8" bottom="8" />
-                </padding>
-            </VBox>
-        </ScrollPane>
-    </center>
+        <!-- Resultados directamente en el VBox principal -->
+        <VBox fx:id="resultadosBox" spacing="20">
+            <padding>
+                <Insets top="8" bottom="8"/>
+            </padding>
+        </VBox>
 
-</BorderPane>
+    </VBox>
+</ScrollPane>

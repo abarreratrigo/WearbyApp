@@ -109,7 +109,7 @@ public class OutfitControlador implements Initializable {
 
         Button eliminar = new Button(" X ");
         eliminar.setStyle("-fx-background-color: transparent; -fx-text-fill: white; " +
-                "-fx-cursor-hand; -fx-font-size: 10px; -fx-padding:0;");
+                "-fx-cursor: hand; -fx-font-size: 10px; -fx-padding:0;");
         eliminar.setOnAction(e -> {
             categoriaIdsOpcionales.remove(seleccionada.getId());
             categoriasSeleccionadasBox.getChildren().remove(etiqueta);
@@ -176,37 +176,66 @@ public class OutfitControlador implements Initializable {
      * Crea un bloque visual de carrusel para una categoría.
      * Incluye título, flechas de navegación e indicadores de posición.
      */
-    private VBox crearCarrusel(OutfitCarruselDTO carrusel){
-        VBox bloque = new VBox(12);
-        bloque.setStyle("-fx-background-color: white; -fx-background-radius:10; " +
-                "-fx-padding: 16; -fx-effect; dropshadow(gaussian," +
-                "rgba(0,0,0,0.1), 8, 0, 0, 2);");
+    private VBox crearCarrusel(OutfitCarruselDTO carrusel) {
+        VBox bloque = new VBox(16);
+        bloque.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-padding: 20;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 3);"
+        );
 
-        Label titulo = new Label(carrusel.getCategoria());
-        titulo.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        // Línea separadora superior con título
+        Label titulo = new Label(carrusel.getCategoria().toUpperCase());
+        titulo.setStyle(
+                "-fx-font-size: 12px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #1a3a5c;" +
+                        "-fx-letter-spacing: 1px;"
+        );
+
+        javafx.scene.control.Separator separador = new javafx.scene.control.Separator();
+        separador.setStyle("-fx-background-color: #e0e0e0;");
 
         List<PrendaFiltroDTO> prendas = carrusel.getPrendas();
-        int [] indice = {0};
+        int[] indice = {0};
+
+        // Contenedor de imagen con fondo gris claro
+        javafx.scene.layout.StackPane imagenContenedor = new javafx.scene.layout.StackPane();
+        imagenContenedor.setPrefSize(220, 220);
+        imagenContenedor.setStyle(
+                "-fx-background-color: #f5f5f5;" +
+                        "-fx-background-radius: 10;"
+        );
 
         ImageView imageView = new ImageView();
         imageView.setFitHeight(200);
         imageView.setFitWidth(200);
         imageView.setPreserveRatio(true);
+        imagenContenedor.getChildren().add(imageView);
 
         Label nombreLabel = new Label();
-        nombreLabel.setStyle("-fx-font-size: 13px;");
+        nombreLabel.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #2c2c2c;"
+        );
 
         Label colorLabel = new Label();
-        colorLabel.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
+        colorLabel.setStyle(
+                "-fx-text-fill: #888;" +
+                        "-fx-font-size: 12px;"
+        );
 
-        //Indicadores de posición
-        HBox indicadores = new HBox(6);
+        // Indicadores de posición
+        HBox indicadores = new HBox(8);
         indicadores.setAlignment(Pos.CENTER);
         for (int i = 0; i < prendas.size(); i++) {
             Label punto = new Label("●");
             punto.setStyle(i == 0 ?
-                    "-fx-text-fill: #2c2c2c; -fx-font-size: 12px" :
-                    "-fx-text-fill: #ccc; -fx-font-size: 10px;");
+                    "-fx-text-fill: #1a3a5c; -fx-font-size: 10px;" :
+                    "-fx-text-fill: #ddd; -fx-font-size: 8px;"
+            );
             indicadores.getChildren().add(punto);
         }
 
@@ -219,8 +248,8 @@ public class OutfitControlador implements Initializable {
                 new Thread(() -> {
                     try {
                         Image img = new Image(
-                                "http://localhost:8080/" + prenda.getImagenUrl(),
-                                200,200, true, true
+                                "http://localhost:8080/" + prenda.getImagenUrl().replace(" ", "%20"),
+                                200, 200, true, true
                         );
                         Platform.runLater(() -> imageView.setImage(img));
                     } catch (Exception e) {
@@ -231,46 +260,63 @@ public class OutfitControlador implements Initializable {
                 imageView.setImage(null);
             }
 
-            for (int i = 0; i<indicadores.getChildren().size(); i++) {
+            for (int i = 0; i < indicadores.getChildren().size(); i++) {
                 indicadores.getChildren().get(i).setStyle(
                         i == indice[0] ?
-                                "-fx-text-fill: #2c2c2c; -fx-font-size: 12px;" :
-                                "-fx-text-fill: #ccc; -fx-font-size: 12px;"
+                                "-fx-text-fill: #1a3a5c; -fx-font-size: 10px;" :
+                                "-fx-text-fill: #ddd; -fx-font-size: 8px;"
                 );
             }
         };
 
         actualizar.run();
 
-        //Flechas de navegación
-        Button izquierda = new Button("◀");
-        izquierda.setStyle("-fx-background-color: transparent; -fx-font-size: 20px;" +
-                "-fx-cursor: hand; -fx-text-fill: #2c2c2c;");
-        izquierda.setOnAction( e -> {
+        // Flechas con estilo de botón circular
+        Button izquierda = new Button("❮");
+        izquierda.setStyle(
+                "-fx-background-color: #f0f0f0;" +
+                        "-fx-background-radius: 50;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-text-fill: #2c2c2c;" +
+                        "-fx-min-width: 36px;" +
+                        "-fx-min-height: 36px;" +
+                        "-fx-padding: 0;"
+        );
+        izquierda.setOnAction(e -> {
             if (indice[0] > 0) {
-                indice[0] --; actualizar.run();
-            }
-        });
-
-        Button derecha = new Button("▶");
-        derecha.setStyle("-fx-background-color: transparent; -fx-font-size: 20px;" +
-                "-fx-cursor: hand; -fx-text-fill: #2c2c2c;");
-        derecha.setOnAction(e -> {
-            if (indice[0] < prendas.size() - 1) {
-                indice[0] ++;
+                indice[0]--;
                 actualizar.run();
             }
         });
 
-        HBox navegacion = new HBox(16);
+        Button derecha = new Button("❯");
+        derecha.setStyle(
+                "-fx-background-color: #f0f0f0;" +
+                        "-fx-background-radius: 50;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-text-fill: #2c2c2c;" +
+                        "-fx-min-width: 36px;" +
+                        "-fx-min-height: 36px;" +
+                        "-fx-padding: 0;"
+        );
+        derecha.setOnAction(e -> {
+            if (indice[0] < prendas.size() - 1) {
+                indice[0]++;
+                actualizar.run();
+            }
+        });
+
+        HBox navegacion = new HBox(20);
         navegacion.setAlignment(Pos.CENTER);
-        navegacion.getChildren().addAll(izquierda, imageView, derecha);
+        navegacion.getChildren().addAll(izquierda, imagenContenedor, derecha);
 
         VBox info = new VBox(4);
         info.setAlignment(Pos.CENTER);
-        info.getChildren().addAll(nombreLabel,colorLabel);
+        info.getChildren().addAll(nombreLabel, colorLabel);
 
-        bloque.getChildren().addAll(titulo, navegacion, info, indicadores);
+        bloque.getChildren().addAll(titulo, separador, navegacion, info, indicadores);
         return bloque;
     }
 

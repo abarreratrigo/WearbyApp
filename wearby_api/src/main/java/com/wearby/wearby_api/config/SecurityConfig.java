@@ -7,25 +7,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+/**
+ * Configuración de seguridad de la aplicación.
+ * La autenticación se gestiona manualmente en los controladores
+ * verificando el id del usuario en cada petición.
+ */
 @Configuration
 public class SecurityConfig {
 
-    // Este objeto usaré en toda la aplicación para cifrar
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Esto desactiva la pantalla de login automática de Spring
-    // para que no interfiera con tus propios endpoints
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/usuarios/registro",
-                                "/api/usuarios/login").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }

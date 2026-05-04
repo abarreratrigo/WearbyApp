@@ -17,32 +17,54 @@ public class CaracteristicasServicio extends ApiService{
 
     public List<Categoria> getCategorias() throws IOException {
         Response r = get("/caracteristicas/categorias");
-        Type tipo = new TypeToken<List<Categoria>>(){}.getType();
-        return gson.fromJson(r.body().string(), tipo);
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            Type tipo = new TypeToken<List<Categoria>>(){}.getType();
+            return gson.fromJson(cuerpo, tipo);
+        }
+        return List.of();
     }
 
-    public List<Estilo> getEstilos() throws IOException{
+    public List<Estilo> getEstilos() throws IOException {
         Response r = get("/caracteristicas/estilos");
-        Type tipo = new TypeToken<List<Estilo>>(){}.getType();
-        return gson.fromJson(r.body().string(), tipo);
+        System.out.println("Estilos código: " + r.code());
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            System.out.println("Estilos cuerpo: " + cuerpo);
+            Type tipo = new TypeToken<List<Estilo>>(){}.getType();
+            return gson.fromJson(cuerpo, tipo);
+        }
+        return List.of();
     }
 
     public List<Temporada> getTemporadas() throws IOException {
         Response r = get("/caracteristicas/temporadas");
-        Type tipo = new TypeToken<List<Temporada>>(){}.getType();
-        return gson.fromJson(r.body().string(), tipo);
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            Type tipo = new TypeToken<List<Temporada>>(){}.getType();
+            return gson.fromJson(cuerpo, tipo);
+        }
+        return List.of();
     }
 
     public List<Color> getColores() throws IOException {
         Response r = get("/caracteristicas/colores");
-        Type tipo = new TypeToken<List<Color>>(){}.getType();
-        return gson.fromJson(r.body().string(), tipo);
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            Type tipo = new TypeToken<List<Color>>(){}.getType();
+            return gson.fromJson(cuerpo, tipo);
+        }
+        return List.of();
     }
 
     public List<Formalidad> getFormalidades() throws IOException {
         Response r = get("/caracteristicas/formalidades");
-        Type tipo = new TypeToken<List<Formalidad>>(){}.getType();
-        return gson.fromJson(r.body().string(), tipo);
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            Type tipo = new TypeToken<List<Formalidad>>(){}.getType();
+            return gson.fromJson(cuerpo, tipo);
+        }
+        return List.of();
     }
 
     public Categoria addCategoria(Categoria categoria) throws IOException {

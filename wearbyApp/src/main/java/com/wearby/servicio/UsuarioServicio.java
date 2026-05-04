@@ -26,8 +26,14 @@ public class UsuarioServicio extends ApiService{
         Response respuesta = post("/usuarios/login", jsonBody);
 
         if (respuesta.isSuccessful() && respuesta.body() != null) {
-            return gson.fromJson(respuesta.body().string(), Usuario.class);
+            String cuerpo = respuesta.body().string();
+            System.out.println("Cuerpo: " + cuerpo);
+            Usuario usuario = gson.fromJson(cuerpo, Usuario.class);
+            System.out.println("Usuario: " + usuario);
+            System.out.println("ID: " + usuario.getId());
+            return usuario;
         }
+        System.out.println("Respuesta no exitosa: " + respuesta.code());
         return null;
     }
 
