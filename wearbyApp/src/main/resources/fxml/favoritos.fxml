@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
-<BorderPane xmlns:fx ="http://javafx.com/fxml"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
             stylesheets="@../css/estilos.css"
-            fx:controller="com.wearby.controlador.FavoritosControlador">
+            fx:controller="com.wearby.controlador.FavoritosControlador"
+            style="-fx-background-color: #bed4d2; -fx-padding: 30;">
 
+    <!-- Cabecera -->
     <top>
-        <HBox alignment="CENTER_LEFT"
-              style="-fx-padding: 0 0 20 0">
-            <Label text="Mis favoritos"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold;" />
-        </HBox>
+        <VBox style="-fx-padding: 0 0 16 0;">
+            <Label text=" Mis favoritos" styleClass="titulo" />
+            <Label text="Tus prendas marcadas como favoritas"
+                   styleClass="subtitulo" />
+        </VBox>
     </top>
 
+    <!-- Galería -->
     <center>
         <ScrollPane fitToWidth="true"
-                    style="-fx-background-color: transparent; -fx-background:transparent;">
+                    style="-fx-background-color: transparent;
+                           -fx-background: transparent;
+                           -fx-border-color: transparent;">
             <FlowPane fx:id="galeriaPane"
                       hgap="16" vgap="16"
                       prefWrapLength="900"
@@ -32,4 +34,5 @@
             </FlowPane>
         </ScrollPane>
     </center>
+
 </BorderPane>

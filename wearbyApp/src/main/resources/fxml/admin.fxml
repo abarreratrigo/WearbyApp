@@ -1,60 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             stylesheets="@../css/estilos.css"
             fx:controller="com.wearby.controlador.AdminControlador"
-            prefWidth="1200" prefHeight="800"
-            style="-fx-background-color: #f5f5f5;">
+            prefWidth="1200" prefHeight="800">
 
     <left>
-        <VBox prefWidth="220"
-              style="-fx-background-color: #2c2c2c">
+        <VBox prefWidth="230"
+              style="-fx-background-color: #102e4e;">
 
-            <VBox alignment="CENTER" prefHeight="80"
-                  style="-fx-background-color: #1a1a1a;">
+            <!-- Cabecera -->
+            <VBox alignment="CENTER" prefHeight="130"
+                  style="-fx-background-color: #1f5182; -fx-spacing: 8;">
+                <padding>
+                    <Insets top="20" bottom="20" />
+                </padding>
+
+                <StackPane prefWidth="80" prefHeight="80"
+                           maxWidth="80" maxHeight="80"
+                           style="-fx-background-color: #f9f9f9;
+                  -fx-background-radius: 40;"
+                           alignment="CENTER">
+                    <ImageView fitWidth="64" fitHeight="64" preserveRatio="true">
+                        <image>
+                            <Image url="@../img/logo.png" />
+                        </image>
+                    </ImageView>
+                </StackPane>
+
                 <Label text="Wearby Admin"
-                       style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                       style="-fx-text-fill: #f9f9f9;
+                              -fx-font-size: 16px;
+                              -fx-font-weight: bold;" />
+
+                <!-- Badge Admin -->
+                <Label text="ADMINISTRADOR"
+                       style="-fx-background-color: #a8d5b6;
+                              -fx-text-fill: #102e4e;
+                              -fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-padding: 2 8 2 8;
+                              -fx-background-radius: 10;" />
             </VBox>
 
-            <Separator style="-fx-background-color: #444" />
+            <!-- Separador -->
+            <Region prefHeight="1" prefWidth="230"
+                    style="-fx-background-color: #1f5182;" />
 
-            <Button fx:id="btnUsuarios"
-                    text="Usuarios"
-                    styleClass="nav-boton"
-                    prefWidth="220"
-                    onAction="#onUsuarios" />
+            <!-- Navegación -->
+            <VBox style="-fx-spacing: 2; -fx-padding: 8 0 8 0;">
+                <Button fx:id="btnUsuarios"
+                        text=" Usuarios"
+                        styleClass="nav-boton-activo"
+                        prefWidth="230"
+                        onAction="#onUsuarios" />
 
-            <Button fx:id="btnEstadisticas"
-                    text="Estadísticas"
-                    styleClass="nav-boton"
-                    prefWidth="220"
-                    onAction="#onEstadisticas" />
+                <Button fx:id="btnEstadisticas"
+                        text=" Estadísticas"
+                        styleClass="nav-boton"
+                        prefWidth="230"
+                        onAction="#onEstadisticas" />
 
-            <Button fx:id="btnCategorias"
-                    text="Categorías"
-                    styleClass="nav-boton"
-                    prefWidth="220"
-                    onAction="#onCategorias" />
+                <Button fx:id="btnCategorias"
+                        text=" Categorías"
+                        styleClass="nav-boton"
+                        prefWidth="230"
+                        onAction="#onCategorias" />
+            </VBox>
 
+            <!-- Espaciador -->
             <Region VBox.vgrow="ALWAYS" />
-            <Separator style="-fx-background-color: #444;" />
 
-            <Button text="Cerrar sesión"
-                    style="-fx-background-color: transparent; -fx-text-fill: #aaa; -fx-font-size:13px; -fx-padding: 12 20 12 20; -fx-cursor:hand; -fx-alignment: center-left;"
-                    prefWidth="220"
+            <!-- Separador inferior -->
+            <Region prefHeight="1" prefWidth="230"
+                    style="-fx-background-color: #1f5182;" />
+
+            <!-- Cerrar sesión -->
+            <Button text="⏻  Cerrar sesión"
+                    styleClass="nav-boton"
+                    prefWidth="230"
                     onAction="#onCerrarSesion" />
+
         </VBox>
     </left>
 
     <center>
         <StackPane fx:id="contenidoCentral"
-                   style="-fx-background-color: #f5f5f5; -fx-padding: 30;" />
+                   style="-fx-background-color: #bed4d2;">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30" />
+            </padding>
+        </StackPane>
     </center>
+
 </BorderPane>

@@ -1,36 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.wearby.controlador.AdminCategoriasControlador"
-      spacing="20">
+      stylesheets="@../css/estilos.css"
+      spacing="20"
+      style="-fx-background-color: #bed4d2; -fx-padding: 30;">
 
-    <Label text="Gestión de categorías"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <!-- Título -->
+    <Label text=" Gestión de categorías" styleClass="titulo" />
 
     <!-- Selector de tipo -->
-    <HBox spacing="12" alignment="CENTER_LEFT">
-        <Label text="Tipo:"/>
-        <ComboBox fx:id="tipoCombo" prefWidth="200" onAction="#onCambiarTipo"/>
-    </HBox>
+    <VBox spacing="6">
+        <Label text="Tipo de categoría" styleClass="label-campo" />
+        <ComboBox fx:id="tipoCombo"
+                  prefWidth="220"
+                  styleClass="campo-texto"
+                  onAction="#onCambiarTipo" />
+    </VBox>
 
     <!-- Añadir nuevo valor -->
     <HBox spacing="12" alignment="CENTER_LEFT"
-          style="-fx-background-color: white; -fx-padding: 16;
+          style="-fx-background-color: #f9f9f9;
+                 -fx-padding: 16;
                  -fx-background-radius: 10;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                 -fx-border-color: #bed4d2;
+                 -fx-border-radius: 10;
+                 -fx-border-width: 1;
+                 -fx-effect: dropshadow(gaussian, #102e4e26, 8, 0, 0, 2);">
+
         <TextField fx:id="nuevoValorField"
                    promptText="Nuevo valor..."
                    styleClass="campo-texto"
-                   prefWidth="300"/>
+                   prefWidth="300" />
+
         <Button text="+ Añadir"
                 styleClass="btn-primary"
-                onAction="#onAnadir"/>
+                onAction="#onAnadir" />
     </HBox>
 
-    <!-- Lista de valores existentes -->
-    <ListView fx:id="listaValores" VBox.vgrow="ALWAYS"/>
+    <!-- Sección lista -->
+    <Label text="Valores existentes" styleClass="label-campo" />
+
+    <!-- Lista -->
+    <ListView fx:id="listaValores"
+              VBox.vgrow="ALWAYS"
+              style="-fx-background-color: #f9f9f9;
+                     -fx-border-color: #3c6f90;
+                     -fx-border-width: 1.5;
+                     -fx-border-radius: 10;
+                     -fx-background-radius: 10;
+                     -fx-effect: dropshadow(gaussian, #102e4e26, 10, 0, 0, 3);" />
 
 </VBox>

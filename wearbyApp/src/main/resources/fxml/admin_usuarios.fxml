@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.wearby.controlador.AdminUsuariosControlador"
-      spacing="16">
+      stylesheets="@../css/estilos.css"
+      spacing="16"
+      style="-fx-background-color: #bed4d2; -fx-padding: 30;">
 
-    <Label text="Gestión de usuarios"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <!-- Cabecera -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text=" Gestión de usuarios" styleClass="titulo" />
+    </HBox>
 
-    <TableView fx:id="tablaUsuarios" VBox.vgrow="ALWAYS">
+    <!-- Tabla -->
+    <TableView fx:id="tablaUsuarios"
+               VBox.vgrow="ALWAYS"
+               fixedCellSize="42"
+               style="-fx-background-color: #f9f9f9;
+                      -fx-border-color: #3c6f90;
+                      -fx-border-width: 1.5;
+                      -fx-border-radius: 10;
+                      -fx-background-radius: 10;
+                      -fx-effect: dropshadow(gaussian, #102e4e26, 10, 0, 0, 3);">
         <columns>
-            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
-            <TableColumn fx:id="colEmail" text="Email" prefWidth="220"/>
-            <TableColumn fx:id="colRol" text="Rol" prefWidth="100"/>
-            <TableColumn fx:id="colActivo" text="Estado" prefWidth="100"/>
-            <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="200"/>
+            <TableColumn fx:id="colId"       text="ID"       prefWidth="60" />
+            <TableColumn fx:id="colNombre"   text="Nombre"   prefWidth="180" />
+            <TableColumn fx:id="colEmail"    text="Email"    prefWidth="220" />
+            <TableColumn fx:id="colRol"      text="Rol"      prefWidth="100" />
+            <TableColumn fx:id="colActivo"   text="Estado"   prefWidth="100" />
+            <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="200" />
         </columns>
+        <placeholder>
+            <Label text="No hay usuarios registrados"
+                   style="-fx-text-fill: #667987; -fx-font-size: 13px;" />
+        </placeholder>
     </TableView>
+
 </VBox>

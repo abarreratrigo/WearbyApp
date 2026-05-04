@@ -1,62 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             stylesheets="@../css/estilos.css"
-            fx:controller="com.wearby.controlador.ArmarioControlador">
+            fx:controller="com.wearby.controlador.ArmarioControlador"
+            style="-fx-background-color: #bed4d2; -fx-padding: 30;">
 
-    <!-- Barra superior -->
+    <!-- Cabecera -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="16"
-              style="-fx-padding: 0 0 20 0">
-            <Label text="Mi Armario"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold;" />
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text=" + AÑADIR PRENDA"
-                    styleClass="btnPrimary"
-                    onAction="#onAnadirPrenda" />
-        </HBox>
-    </top>
+        <VBox spacing="14" style="-fx-padding: 0 0 16 0;">
 
-    <!-- Filtros -->
-    <center>
-        <VBox spacing="16">
-            <HBox spacing="12" alignment="CENTER_LEFT">
+            <!-- Título + botón añadir -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="2">
+                    <Label text=" Mi Armario" styleClass="titulo" />
+                    <Label text="Gestiona y organiza tu ropa"
+                           styleClass="subtitulo" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="+ Añadir prenda"
+                        styleClass="btn-primary"
+                        prefHeight="38"
+                        onAction="#onAnadirPrenda" />
+            </HBox>
+
+            <!-- Filtros -->
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #f9f9f9;
+                         -fx-padding: 12 16 12 16;
+                         -fx-background-radius: 8;
+                         -fx-border-color: #bed4d2;
+                         -fx-border-radius: 8;
+                         -fx-border-width: 1;">
+
                 <ComboBox fx:id="filtroCategoriaCombo"
-                          promptText="Categoria"
-                          prefWidth="150"
+                          promptText="Categoría"
+                          prefWidth="155"
+                          styleClass="campo-texto"
                           onAction="#onFiltrar" />
+
                 <ComboBox fx:id="filtroEstiloCombo"
                           promptText="Estilo"
-                          prefWidth="150"
+                          prefWidth="155"
+                          styleClass="campo-texto"
                           onAction="#onFiltrar" />
+
                 <ComboBox fx:id="filtroTemporadaCombo"
                           promptText="Temporada"
-                          prefWidth="150"
+                          prefWidth="155"
+                          styleClass="campo-texto"
                           onAction="#onFiltrar" />
-                <Button text="Limpiar filtros"
-                        style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand; -fx-underline: true;"
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button text="✕  Limpiar filtros"
+                        styleClass="btn-link"
                         onAction="#onLimpiarFiltros" />
             </HBox>
 
-            <!-- Galería de prendas -->
-            <ScrollPane fitToWidth="true"
-                        style="-fx-background-color: transparent; -fx-background: transparent;">
-                <FlowPane fx:id="galeriaPane"
-                          hgap="16" vgap="16"
-                          prefWrapLength="900"
-                          style="-fx-background-color: transparent;">
-                    <padding>
-                        <Insets top="8" right="8" bottom="8" left="8" />
-                    </padding>
-                </FlowPane>
-            </ScrollPane>
         </VBox>
+    </top>
+
+    <!-- Galería -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent;
+                           -fx-background: transparent;
+                           -fx-border-color: transparent;">
+            <FlowPane fx:id="galeriaPane"
+                      hgap="16" vgap="16"
+                      prefWrapLength="900"
+                      style="-fx-background-color: transparent;">
+                <padding>
+                    <Insets topRightBottomLeft="8" />
+                </padding>
+            </FlowPane>
+        </ScrollPane>
     </center>
+
 </BorderPane>

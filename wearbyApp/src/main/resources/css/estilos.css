@@ -1,15 +1,15 @@
 * {
-    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-family: "Segoe UI";
 }
 
 /* ─── Fondo general ─────────────────────────────────────────── */
 .root {
-    -fx-background-color: #bed4d2;   /* azul menta muy claro — fondo app */
+    -fx-background-color: #bed4d2;
 }
 
 /* ─── Botones primarios ──────────────────────────────────────── */
 .btn-primary {
-    -fx-background-color: #1f5182;   /* azul fuerte */
+    -fx-background-color: #1f5182;
     -fx-text-fill: #f9f9f9;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -20,13 +20,12 @@
 }
 
 .btn-primary:hover {
-    -fx-background-color: #3c6f90;   /* azul medio */
-    -fx-text-fill: #f9f9f9;
+    -fx-background-color: #3c6f90;
 }
 
 /* ─── Botón de peligro ───────────────────────────────────────── */
 .btn-danger {
-    -fx-background-color: #667987;   /* gris azulado */
+    -fx-background-color: #667987;
     -fx-text-fill: #f9f9f9;
     -fx-font-size: 13px;
     -fx-padding: 8 16 8 16;
@@ -35,30 +34,31 @@
 }
 
 .btn-danger:hover {
-    -fx-background-color: #102e4e;   /* navy oscuro */
-    -fx-text-fill: #f9f9f9;
+    -fx-background-color: #102e4e;
 }
 
 /* ─── Campos de texto ────────────────────────────────────────── */
 .campo-texto {
     -fx-background-color: #f9f9f9;
-    -fx-border-color: #bed4d2;       /* borde azul menta */
+    -fx-border-color: #bed4d2;
     -fx-border-radius: 6;
     -fx-background-radius: 6;
     -fx-padding: 8 12 8 12;
     -fx-font-size: 14px;
-    -fx-text-fill: #102e4e;          /* navy para el texto escrito */
+    -fx-text-fill: #102e4e;
+    -fx-prompt-text-fill: #667987;
 }
 
 .campo-texto:focused {
-    -fx-border-color: #a8d5b6;       /* verde menta en focus */
+    -fx-border-color: #a8d5b6;
+    -fx-border-width: 2;
 }
 
 /* ─── Tarjetas ───────────────────────────────────────────────── */
 .tarjeta {
     -fx-background-color: #f9f9f9;
     -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(16,46,78,0.15), 12, 0, 0, 4);
+    -fx-effect: dropshadow(gaussian, #102e4e26, 12, 0, 0, 4);
     -fx-padding: 16;
     -fx-border-color: #bed4d2;
     -fx-border-radius: 12;
@@ -69,37 +69,83 @@
 .titulo {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1f5182;          /* azul fuerte */
+    -fx-text-fill: #1f5182;
 }
 
 .subtitulo {
     -fx-font-size: 14px;
-    -fx-text-fill: #3c6f90;          /* azul medio */
+    -fx-text-fill: #3c6f90;
 }
 
 /* ─── Navegación lateral ─────────────────────────────────────── */
 .nav-boton {
     -fx-background-color: transparent;
-    -fx-text-fill: #bed4d2;          /* azul menta claro sobre fondo oscuro */
+    -fx-text-fill: #bed4d2;
     -fx-font-size: 14px;
-    -fx-padding: 12 20 12 20;
+    -fx-padding: 13 20 13 20;
     -fx-cursor: hand;
     -fx-alignment: center-left;
     -fx-border-width: 0;
+    -fx-background-radius: 0;    /* sin radio — ocupa todo el ancho del sidebar */
 }
 
 .nav-boton:hover {
-    -fx-background-color: #3c6f90;   /* azul medio */
-    -fx-text-fill: #a8d5b6;          /* verde menta */
+    -fx-background-color: #1f5182;
+    -fx-text-fill: #a8d5b6;
 }
 
 .nav-boton-activo {
-    -fx-background-color: #1f5182;   /* azul fuerte */
+    -fx-background-color: #3c6f90;   /* azul medio — contraste sobre #102e4e */
     -fx-text-fill: #f9f9f9;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 12 20 12 20;
+    -fx-padding: 13 20 13 20;
     -fx-cursor: hand;
     -fx-alignment: center-left;
-    -fx-border-width: 0;
+    -fx-border-width: 0 0 0 3;       /* línea izquierda de acento */
+    -fx-border-color: #a8d5b6;       /* verde menta como indicador activo */
+    -fx-background-radius: 0;
+}
+
+/* ─── Botón cancelar ─────────────────────────────────────────── */
+.btn-cancelar {
+    -fx-background-color: #bed4d2;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: #102e4e;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-cancelar:hover {
+    -fx-background-color: #a8c5c3;
+    -fx-text-fill: #102e4e;
+}
+
+/* ─── ComboBox ───────────────────────────────────────────────── */
+.combo-box {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #bed4d2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 4 8 4 8;
+    -fx-font-size: 14px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #a8d5b6;
+    -fx-border-width: 2;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #102e4e;
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 6 12 6 12;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #bed4d2;
 }

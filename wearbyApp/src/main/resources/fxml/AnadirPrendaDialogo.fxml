@@ -1,91 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<VBox xmlns:fx ="http://javafx.com/fxml"
+<VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.wearby.controlador.AnadirPrendaControlador"
       stylesheets="@../css/estilos.css"
-      spacing="16" prefWidth="500"
-      style="-fx-backgroun-color: white; -fx-padding: 30;">
-    <Label text="Añadir prenda"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+      spacing="16"
+      prefWidth="500"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
 
-    <!-- Imagen -->
+    <!-- Título -->
+    <Label text="Añadir prenda" styleClass="titulo" />
+
+    <!-- Preview imagen + botón seleccionar -->
     <HBox spacing="16" alignment="CENTER_LEFT">
-        <ImageView fx:id="imagenPreview"
-                   fitHeight="120" fitWidth="120"
-                   preserveRatio="true"
-                   style="-fx-background-color: #f0f0f0;" />
 
-        <Button text="Seleccionar imagen"
-                styleClass="btn-primary"
-                onAction="#onSeleccionarImagen" />
+        <StackPane prefWidth="120" prefHeight="120"
+                   style="-fx-background-color: #bed4d2;
+                          -fx-background-radius: 10;
+                          -fx-border-color: #bed4d2;
+                          -fx-border-radius: 10;
+                          -fx-border-width: 1;">
+            <ImageView fx:id="imagenPreview"
+                       fitHeight="112" fitWidth="112"
+                       preserveRatio="true" />
+        </StackPane>
+
+        <VBox spacing="8" alignment="CENTER_LEFT">
+            <Button text="Seleccionar imagen"
+                    styleClass="btn-primary"
+                    onAction="#onSeleccionarImagen" />
+            <Label text="JPG o PNG recomendado"
+                   styleClass="label-muted" />
+        </VBox>
+
     </HBox>
 
     <!-- Nombre -->
     <VBox spacing="6">
-        <Label text="Nombre" />
+        <Label text="Nombre" styleClass="label-campo" />
         <TextField fx:id="nombreField"
                    promptText="Ej: Camiseta Blanca"
                    styleClass="campo-texto"
-                   prefWidth="400" />
+                   prefWidth="440" />
     </VBox>
 
-    <!-- Fila de desplegables -->
+    <!-- Fila: Categoría + Color -->
     <HBox spacing="12">
         <VBox spacing="6">
-            <Label text="Categoría" />
-            <ComboBox fx:id="categoriaCombo" prefWidth="200" />
+            <Label text="Categoría" styleClass="label-campo" />
+            <ComboBox fx:id="categoriaCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
         <VBox spacing="6">
-            <Label text="Color" />
-            <ComboBox fx:id="coloCombo" prefWidth="200" />
+            <Label text="Color" styleClass="label-campo" />
+            <ComboBox fx:id="colorCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
     </HBox>
 
+    <!-- Fila: Estilo + Formalidad -->
     <HBox spacing="12">
         <VBox spacing="6">
-            <Label text="Estilo" />
-            <ComboBox fx:id="estiloCombo" prefWidth="200" />
+            <Label text="Estilo" styleClass="label-campo" />
+            <ComboBox fx:id="estiloCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
         <VBox spacing="6">
-            <Label text="Formalidad" />
-            <ComboBox fx:id="formalidadCombo" prefWidth="200" />
+            <Label text="Formalidad" styleClass="label-campo" />
+            <ComboBox fx:id="formalidadCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
     </HBox>
 
+    <!-- Temporada -->
     <VBox spacing="6">
-        <Label text="Temporada" />
-        <ComboBox fx:id="temporadaCombo" prefWidth="200" />
+        <Label text="Temporada" styleClass="label-campo" />
+        <ComboBox fx:id="temporadaCombo"
+                  prefWidth="210"
+                  styleClass="campo-texto" />
     </VBox>
 
     <!-- Notas -->
     <VBox spacing="6">
-        <Label text="Notas (opcional)" />
+        <Label text="Notas (opcional)" styleClass="label-campo" />
         <TextArea fx:id="notasArea"
                   promptText="Añade notas sobre esta prenda..."
                   prefHeight="80"
+                  prefWidth="440"
                   styleClass="campo-texto"
                   wrapText="true" />
     </VBox>
 
+    <!-- Error -->
     <Label fx:id="errorLabel"
            text=""
-           style="-fx-text-fill: #e74c3c; -fx-font-size: 13px" />
+           styleClass="label-error" />
 
-    <!-- Botones -->
+    <!-- Botones acción -->
     <HBox spacing="12" alignment="CENTER_RIGHT">
         <Button text="Cancelar"
-                styleClass="-fx-background-color: #eee; -fx-cursor: hand; -fx-padding: 10 20 10 20; -fx-background-radius: 6;"
+                style="-fx-background-color: #bed4d2;
+               -fx-text-fill: #102e4e;
+               -fx-font-size: 14px;
+               -fx-padding: 10 20 10 20;
+               -fx-background-radius: 6;
+               -fx-border-radius: 6;
+               -fx-cursor: hand;"
                 onAction="#onCancelar" />
         <Button fx:id="guardarBtn"
                 text="Guardar prenda"
                 styleClass="btn-primary"
-                onAction="#onGuardar"/>
+                onAction="#onGuardar" />
     </HBox>
+
 </VBox>

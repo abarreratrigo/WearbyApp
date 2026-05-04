@@ -1,54 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.wearby.controlador.AdminEstadisticasControlador"
-        spacing="24">
+      fx:controller="com.wearby.controlador.AdminEstadisticasControlador"
+      stylesheets="@../css/estilos.css"
+      spacing="20"
+      style="-fx-background-color: #bed4d2; -fx-padding: 30;">
 
-    <Label text="Estadísticas generales"
-           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <!-- Título -->
+    <Label text=" Estadísticas generales" styleClass="titulo" />
 
-    <!-- Tarjeta de métricas -->
-    <HBox spacing="20">
+    <!-- Tarjetas de métricas -->
+    <HBox spacing="16">
 
-        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
-            <Label text="Usuarios registrados"
-                   style="-fx-text-fill: #666; -fx-font-size: 14px" />
+        <!-- Usuarios -->
+        <VBox styleClass="tarjeta" prefWidth="210"
+              alignment="CENTER" spacing="6">
+            <Label text=" Usuarios registrados"
+                   styleClass="label-muted" />
             <Label fx:id="totalUsuariosLabel"
                    text="..."
-                   style="-fx-font-size: 36px; -fx-font-weight: bold" />
+                   style="-fx-font-size: 42px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1f5182;" />
+            <Label text="usuarios"
+                   style="-fx-text-fill: #bed4d2;
+                          -fx-font-size: 12px;" />
         </VBox>
 
-        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
-            <Label text="Prendas en el sistema"
-                   style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+        <!-- Prendas -->
+        <VBox styleClass="tarjeta" prefWidth="210"
+              alignment="CENTER" spacing="6">
+            <Label text=" Prendas en el sistema"
+                   styleClass="label-muted" />
             <Label fx:id="totalPrendasLabel"
                    text="..."
-                   style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+                   style="-fx-font-size: 42px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1f5182;" />
+            <Label text="prendas"
+                   style="-fx-text-fill: #bed4d2;
+                          -fx-font-size: 12px;" />
         </VBox>
 
-        <VBox styleClass="tarjeta" prefWidth="200" alignment="CENTER" spacing="8">
-            <Label text="Outfits generados"
-                   style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+        <!-- Outfits -->
+        <VBox styleClass="tarjeta" prefWidth="210"
+              alignment="CENTER" spacing="6">
+            <Label text=" Outfits generados"
+                   styleClass="label-muted" />
             <Label fx:id="totalOufitsLabel"
                    text="..."
-                   style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+                   style="-fx-font-size: 42px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #1f5182;" />
+            <Label text="outfits"
+                   style="-fx-text-fill: #bed4d2;
+                          -fx-font-size: 12px;" />
         </VBox>
+
     </HBox>
 
-    <!-- Tabla de prendas por usuario -->
+    <!-- Sección tabla -->
     <Label text="Prendas por usuario"
+           styleClass="subtitulo"
            style="-fx-font-size: 16px; -fx-font-weight: bold;" />
 
-    <TableView fx:id="tablaPrendasUsuario" VBox.vgrow="ALWAYS">
+    <!-- Tabla -->
+    <TableView fx:id="tablaPrendasUsuario"
+               VBox.vgrow="ALWAYS"
+               fixedCellSize="42"
+               style="-fx-background-color: #f9f9f9;
+                      -fx-border-color: #3c6f90;
+                      -fx-border-width: 1.5;
+                      -fx-border-radius: 10;
+                      -fx-background-radius: 10;
+                      -fx-effect: dropshadow(gaussian, #102e4e26, 10, 0, 0, 3);">
         <columns>
-            <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="300" />
-            <TableColumn fx:id="colTotal" text="Total prendas" prefWidth="150" />
+            <TableColumn fx:id="colUsuario" text="Usuario"       prefWidth="300" />
+            <TableColumn fx:id="colTotal"   text="Total prendas" prefWidth="150" />
         </columns>
+        <placeholder>
+            <Label text="No hay datos disponibles"
+                   style="-fx-text-fill: #667987; -fx-font-size: 13px;" />
+        </placeholder>
     </TableView>
+
 </VBox>
