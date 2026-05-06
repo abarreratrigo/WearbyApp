@@ -1,0 +1,70 @@
+@startuml
+title Secuencia 3 - Añadir una prenda
+
+skinparam backgroundColor white
+skinparam SequenceArrowColor #444444
+skinparam SequenceLifeLineBorderColor #1f5182
+skinparam SequenceParticipantBorderColor #1f5182
+skinparam SequenceParticipantBackgroundColor #e6f1fb
+skinparam SequenceParticipantFontColor #102e4e
+skinparam SequenceActorBorderColor #1f5182
+skinparam SequenceActorBackgroundColor #e6f1fb
+skinparam FontSize 9
+skinparam ParticipantPadding 10
+skinparam BoxPadding 5
+skinparam SequenceMessageAlign center
+
+actor Usuario as U
+participant "AnadirPrenda\nControlador" as JFX
+participant "PrendaServicio\n(OkHttp)" as PS
+participant "PrendaController\n(Spring Boot)" as API
+participant "ImagenService" as IS
+participant "PrendaRepository\n(JPA)" as REPO
+database "MySQL" as DB
+
+U -> JFX : Seleccionar imagen
+JFX -> JFX : Abre FileChooser
+JFX --> U : Previsualización
+
+U -> JFX : Rellena características
+U -> JFX : Pulsa Guardar
+
+activate JFX
+JFX -> JFX : Valida campos
+
+alt Campos incompletos
+    JFX --> U : Mensaje de error
+else Campos válidos
+    JFX -> PS : anadir(datos, imagen)
+    activate PS
+    PS -> PS : Construye multipart
+    PS -> API : POST /api/prendas
+    activate API
+
+    API -> API : Valida datos
+    API -> IS : guardarImagen(archivo)
+    activate IS
+    IS -> IS : Genera UUID
+    IS -> IS : Guarda en ficheros
+    IS --> API : Ruta del archivo
+    deactivate IS
+
+    API -> REPO : save(prenda)
+    activate REPO
+    REPO -> DB : INSERT INTO prenda
+    activate DB
+    DB --> REPO : ID generado
+    deactivate DB
+    REPO --> API : Prenda guardada
+    deactivate REPO
+
+    API --> PS : 200 OK (JSON)
+    deactivate API
+    PS --> JFX : Prenda creada
+    deactivate PS
+
+    JFX -> JFX : Platform.runLater()
+    JFX --> U : Cierra y recarga galería
+end
+deactivate JFX
+@enduml

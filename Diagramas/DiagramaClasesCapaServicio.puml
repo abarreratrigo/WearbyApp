@@ -1,0 +1,64 @@
+@startuml diagrama_servicios
+
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #e6f1fb
+    BorderColor #1f5182
+    HeaderBackgroundColor #bed4d2
+    FontColor #102e4e
+    AttributeFontColor #102e4e
+    ArrowColor #444444
+}
+skinparam FontSize 10
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+class ApiService {
+    - BASE_URL : String
+    - cliente : OkHttpClient
+    - gson : Gson
+    --
+    + get(endpoint) : Response
+    + post(endpoint, body) : Response
+    + put(endpoint, body) : Response
+    + delete(endpoint) : Response
+}
+
+class UsuarioServicio {
+    --
+    + login(email, contrasena) : Usuario
+    + registrar(nombre, email, contrasena) : Usuario
+    + editarPerfil(id, datos) : Usuario
+    + getUsuarios() : List<Usuario>
+    + toggleActivo(id) : void
+    + eliminar(id) : void
+}
+
+class PrendaServicio {
+    --
+    + getPrendas(usuarioId) : List<Prenda>
+    + getFavoritas(usuarioId) : List<Prenda>
+    + anadir(datos, imagen) : Prenda
+    + editar(id, datos) : Prenda
+    + eliminar(id) : void
+    + toggleFavorito(id) : Prenda
+}
+
+class OutfitServicio {
+    --
+    + generar(usuarioId, filtros) : List<OutfitCarruselDTO>
+    + guardar(usuarioId, nombre, prendas) : Outfit
+}
+
+' Posición
+ApiService -[hidden]d- UsuarioServicio
+UsuarioServicio -[hidden]r- PrendaServicio
+PrendaServicio -[hidden]r- OutfitServicio
+
+' Relaciones reales
+UsuarioServicio --|> ApiService : hereda
+PrendaServicio --|> ApiService : hereda
+OutfitServicio --|> ApiService : hereda
+
+@enduml

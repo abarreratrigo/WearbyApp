@@ -1,0 +1,120 @@
+@startuml diagrama_dominio
+
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #e6f1fb
+    BorderColor #1f5182
+    HeaderBackgroundColor #bed4d2
+    FontColor #102e4e
+    AttributeFontColor #102e4e
+    ArrowColor #444444
+}
+skinparam FontSize 10
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+class SesionUsuario <<Singleton>> {
+    - instancia : SesionUsuario
+    - usuario : Usuario
+    --
+    + getInstancia() : SesionUsuario
+    + iniciar(usuario) : void
+    + cerrar() : void
+    + getId() : Integer
+    + getRol() : String
+    + isAdmin() : Boolean
+}
+
+class Usuario {
+    - id : Integer
+    - nombre : String
+    - email : String
+    - contrasena : String
+    - rol : String
+    - activo : Boolean
+    --
+    + login(email, contrasena) : Usuario
+    + registro(nombre, email, contrasena) : Usuario
+    + editarPerfil(id, datos) : Usuario
+}
+
+class Administrador {
+    --
+    + getUsuarios() : List<Usuario>
+    + activarUsuario(id) : void
+    + eliminarUsuario(id) : void
+    + getEstadisticas() : Map<String, Long>
+    + gestionarCategorias(tipo, valor) : void
+}
+
+class Prenda {
+    - id : Integer
+    - nombre : String
+    - imagenUrl : String
+    - favorito : Boolean
+    - notas : String
+    - categoria : Categoria
+    - color : Color
+    - estilo : Estilo
+    - formalidad : Formalidad
+    - temporada : Temporada
+    --
+    + anadir(datos, imagen) : Prenda
+    + editar(id, datos) : Prenda
+    + eliminar(id) : void
+    + marcarFavorito(id) : Prenda
+}
+
+class Armario {
+    --
+    + getPrendas(usuarioId) : List<Prenda>
+    + getFavoritos(usuarioId) : List<Prenda>
+    + filtrarPor(categoria, estilo, temporada) : List<Prenda>
+}
+
+class Outfit {
+    - id : Integer
+    - nombre : String
+    - fechaGeneracion : Date
+    - prendas : List<Prenda>
+    --
+    + generar(solicitud) : List<OutfitCarruselDTO>
+    + guardar(usuarioId, nombre, prendas) : Outfit
+}
+
+class GeneradorOutfit {
+    --
+    + leerCaracteristicas(solicitud) : OutfitSolicitudDTO
+    + aplicarFiltros(filtros) : List<PrendaFiltroDTO>
+    + priorizarFavoritos(prendas) : List<PrendaFiltroDTO>
+    + devolverOpciones() : List<OutfitCarruselDTO>
+}
+
+class PrendaDAO {
+    --
+    + getPrendasFiltradas(filtros) : List<PrendaFiltroDTO>
+    + getEstadisticas() : Map<String, Long>
+    + llamarProcedimientoOutfit(params) : List<PrendaFiltroDTO>
+}
+
+' Posición
+SesionUsuario -[hidden]r- Usuario
+Usuario -[hidden]r- Administrador
+Armario -[hidden]r- Prenda
+Prenda -[hidden]r- Outfit
+Usuario -[hidden]d- Armario
+Administrador -[hidden]d- Prenda
+Outfit -[hidden]r- GeneradorOutfit
+GeneradorOutfit -[hidden]r- PrendaDAO
+Prenda -[hidden]d- GeneradorOutfit
+
+' Relaciones reales
+SesionUsuario ..> Usuario : <<almacena>>
+Administrador --|> Usuario : hereda
+Armario "1" *-- "0..*" Prenda : contiene
+Outfit "1" *-- "1..*" Prenda : incluye
+GeneradorOutfit ..> Prenda : <<usa>>
+GeneradorOutfit ..> PrendaDAO : <<usa>>
+
+@enduml
