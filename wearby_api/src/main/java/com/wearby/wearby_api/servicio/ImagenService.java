@@ -21,7 +21,8 @@ public class ImagenService {
     // Guarda la imagen y devuelve la ruta pública
     public String guardarImagen(MultipartFile archivo) throws IOException {
         // Generamos un nombre único para evitar colisiones
-        String nombreArchivo = UUID.randomUUID() + "_" + archivo.getOriginalFilename();
+        String nombreArchivo = UUID.randomUUID().toString() + "_" +
+                archivo.getOriginalFilename().replace(" ", "_");
         Path destino = carpetaUploads.resolve(nombreArchivo);
         Files.copy(archivo.getInputStream(), destino, StandardCopyOption.REPLACE_EXISTING);
         return "uploads/prendas/" + nombreArchivo;

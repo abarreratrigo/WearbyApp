@@ -7,7 +7,7 @@ package com.wearby.modelo;
 public class Prenda {
     private Integer id;
     private String nombre;
-    private String imageUrl;
+    private String imagenUrl;
     private Boolean favorito;
     private Categoria categoria;
     private Color color;
@@ -18,7 +18,7 @@ public class Prenda {
 
     public Integer getId() {return id;}
     public String getNombre() {return nombre;}
-    public String getImageUrl() {return imageUrl;}
+    public String getImageUrl() {return imagenUrl;}
     public Boolean getFavorito() {return favorito;}
     public Categoria getCategoria() {return categoria;}
     public Color getColor() {return color;}

@@ -44,11 +44,11 @@ public class PrincipalControlador implements Initializable {
     private void cargarVista(String rutaFxml) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/fxml/"+rutaFxml)
+                    getClass().getResource("/fxml/" + rutaFxml)
             );
             Node vista = loader.load();
             contenidoCentral.getChildren().setAll(vista);
-        }catch (IOException e){
+        } catch (IOException e) {
             Alertas.error("Error", "No se puede cargar la vista: " + rutaFxml);
         }
     }

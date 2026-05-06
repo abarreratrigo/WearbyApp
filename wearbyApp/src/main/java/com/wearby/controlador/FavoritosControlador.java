@@ -81,16 +81,15 @@ public class FavoritosControlador implements Initializable {
         imageView.setFitHeight(156);
         imageView.setPreserveRatio(true);
 
-        if (prenda.getImageUrl() != null){
+        if (prenda.getImageUrl() != null) {
+            String urlCompleta = "http://localhost:8080/" +
+                    prenda.getImageUrl().replace(" ", "%20");
             new Thread(() -> {
                 try {
-                    Image img = new Image(
-                            "http://localhost:8080/" + prenda.getImageUrl(),
-                            156, 156, true, true
-                    );
+                    Image img = new Image(urlCompleta, 156, 156, true, true);
                     Platform.runLater(() -> imageView.setImage(img));
                 } catch (Exception e) {
-                    //Si no carga la imagen se queda en blanco
+                    // Si no carga la imagen se queda en blanco
                 }
             }).start();
         }
@@ -99,16 +98,22 @@ public class FavoritosControlador implements Initializable {
         nombre.setFont(Font.font(15));
         nombre.setWrapText(true);
         nombre.setMaxWidth(156);
+        nombre.setStyle("-fx-text-fill: #333333;");
 
         Label categoria = new Label(
                 prenda.getCategoria() != null ? prenda.getCategoria().getNombre() : ""
         );
         categoria.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
 
-        Button btnDesmarcar = new Button("❤️ Quitar de favoritos");
-        btnDesmarcar.setStyle("-fx-background-color: transparent; -fx-text-fill: #e74c3c; " +
-                "-fx-cursor: hand; -fx-font-size: 12px");
-
+        Button btnDesmarcar = new Button("✕ Quitar de favoritos");
+        btnDesmarcar.setStyle(
+                "-fx-background-color: #fff0f0;" +
+                        "-fx-text-fill: #e74c3c;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-size: 11px;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-padding: 4 10 4 10;"
+        );
         btnDesmarcar.setOnAction(e -> onDesmarcarFavorito(prenda, tarjeta));
 
         tarjeta.getChildren().addAll(imageView, nombre, categoria, btnDesmarcar);

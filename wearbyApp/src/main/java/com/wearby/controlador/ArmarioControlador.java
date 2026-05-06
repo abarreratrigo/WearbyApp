@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -108,6 +109,8 @@ public class ArmarioControlador implements Initializable {
         tarjeta.setAlignment(Pos.TOP_CENTER);
         tarjeta.setStyle("-fx-background-color: white; -fx-background-radius: 10; " +
                 " -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);");
+        tarjeta.setFocusTraversable(false);
+        tarjeta.setOnMouseClicked(e -> e.consume());
 
         ImageView imageView = new ImageView();
         imageView.setFitWidth(156);
@@ -115,16 +118,46 @@ public class ArmarioControlador implements Initializable {
         imageView.setPreserveRatio(true);
         imageView.setStyle("-fx-background-radius: 8;");
 
+        StackPane imagenContenedor = new javafx.scene.layout.StackPane(imageView);
+        imagenContenedor.setPrefSize(156, 156);
+        imagenContenedor.setMinSize(156, 156);
+        imagenContenedor.setMaxSize(156, 156);
+        imagenContenedor.setStyle("-fx-background-color: #f5f5f5; -fx-background-radius: 8;");
+
+
+        imageView.setOnMouseClicked(e -> {
+            e.consume(); // evita que el evento se propague a la tarjeta
+            if (prenda.getImageUrl() != null) {
+                String urlCompleta = "http://localhost:8080/" +
+                        prenda.getImageUrl().replace(" ", "%20");
+                ImageView imgGrande = new ImageView(
+                        new Image(urlCompleta, 400, 400, true, true)
+                );
+                imgGrande.setPreserveRatio(true);
+
+                javafx.scene.layout.StackPane contenedor =
+                        new javafx.scene.layout.StackPane(imgGrande);
+                contenedor.setStyle("-fx-background-color: white; -fx-padding: 20;");
+
+                Stage ventana = new Stage();
+                ventana.setTitle(prenda.getNombre());
+                ventana.setScene(new javafx.scene.Scene(contenedor, 440, 440));
+                ventana.initOwner(galeriaPane.getScene().getWindow());
+                ventana.initModality(Modality.APPLICATION_MODAL);
+                ventana.show();
+            }
+        });
+        imageView.setStyle("-fx-cursor: hand;");
+
         if (prenda.getImageUrl() != null){
+            String urlCompleta = "http://localhost:8080/" +
+                    prenda.getImageUrl().replace(" ", "%20");
             new Thread(() -> {
                 try {
-                    Image img = new Image(
-                            "http://localhost:8080/" + prenda.getImageUrl(),
-                            156,156, true, true
-                    );
+                    Image img = new Image(urlCompleta, 156, 156, true, true);
                     Platform.runLater(() -> imageView.setImage(img));
                 } catch (Exception e) {
-                    //Si no carga, se deja en blanco
+                    System.out.println("Error cargando imagen: " + e.getMessage());
                 }
             }).start();
         }
@@ -133,6 +166,7 @@ public class ArmarioControlador implements Initializable {
         nombre.setFont(Font.font(15));
         nombre.setWrapText(true);
         nombre.setMaxWidth(156);
+        nombre.setStyle("-fx-text-fill: #333333;");
 
         Label categoria = new Label(
                 prenda.getCategoria() != null ? prenda.getCategoria().getNombre() : ""
@@ -143,17 +177,33 @@ public class ArmarioControlador implements Initializable {
         acciones.setAlignment(Pos.CENTER);
 
         Button btnFavorito = new Button(
-                Boolean.TRUE.equals(prenda.getFavorito()) ? "❤️" : "🤍"
+                Boolean.TRUE.equals(prenda.getFavorito()) ? "♥" : "♡"
         );
-        btnFavorito.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-font-size: 16px;");
+        btnFavorito.setStyle(
+                "-fx-background-color: #fff0f0;" +
+                        "-fx-text-fill: #e74c3c;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-padding: 4 8 4 8;"
+        );
+        btnFavorito.setFocusTraversable(false);
         btnFavorito.setOnAction(e -> onToggleFavorito(prenda, btnFavorito));
 
-        Button btnEliminar = new Button("🗑");
-        btnEliminar.setStyle("-fx-background-color: transparent; -fx-cursor: hand; -fx-font-size: 16px;");
+        Button btnEliminar = new Button("✕");
+        btnEliminar.setStyle(
+                "-fx-background-color: #f5f5f5;" +
+                        "-fx-text-fill: #888;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-padding: 4 8 4 8;"
+        );
+        btnEliminar.setFocusTraversable(false);
         btnEliminar.setOnAction(e -> onEliminar(prenda, tarjeta));
 
         acciones.getChildren().addAll(btnFavorito, btnEliminar);
-        tarjeta.getChildren().addAll(imageView, nombre, categoria, acciones);
+        tarjeta.getChildren().addAll(imagenContenedor, nombre, categoria, acciones);
 
         return tarjeta;
     }
@@ -164,7 +214,7 @@ public class ArmarioControlador implements Initializable {
                 prendaServicio.toggleFavorito(prenda.getId());
                 boolean nuevoEstado = !Boolean.TRUE.equals(prenda.getFavorito());
                 prenda.setFavorito(nuevoEstado);
-                Platform.runLater(() -> btn.setText(nuevoEstado ? "❤️" : "🤍"));
+                Platform.runLater(() -> btn.setText(nuevoEstado ? "♥" : "♡"));
             } catch (Exception e) {
                 Platform.runLater(() ->
                         Alertas.error("Error", "No se ha podido actualizar el favorito"));
