@@ -40,6 +40,6 @@ public class PrendaControladorIntegracionTest {
     @Test
     void eliminarPrendaInexistente_debeRetornar404() throws Exception {
         mockMvc.perform(delete("/api/prendas/9999999"))
-                .andExpect(status().isNotFound()); // 404 ✅
+                .andExpect(status().isNotFound());
     }
 }

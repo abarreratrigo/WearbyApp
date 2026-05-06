@@ -3,6 +3,7 @@ package com.wearby.wearby_api.controlador;
 import com.wearby.wearby_api.modelo.Usuario;
 import com.wearby.wearby_api.servicio.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,14 @@ public class UsuarioController {
 
     // POST /api/usuarios/registro
     @PostMapping("/registro")
-    public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario) {
-        return ResponseEntity.ok(usuarioService.registrar(usuario));
+    public ResponseEntity<?> registrar(@RequestBody Usuario usuario) {
+        try {
+            Usuario nuevo = usuarioService.registrar(usuario);
+            return ResponseEntity.ok(nuevo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("El email ya está registrado");
+        }
     }
 
     // POST /api/usuarios/login
