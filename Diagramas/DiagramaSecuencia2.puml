@@ -1,0 +1,79 @@
+@startuml
+title Secuencia 2 - Generar un outfit
+
+skinparam backgroundColor white
+skinparam SequenceArrowColor #444444
+skinparam SequenceLifeLineBorderColor #1f5182
+skinparam SequenceParticipantBorderColor #1f5182
+skinparam SequenceParticipantBackgroundColor #e6f1fb
+skinparam SequenceParticipantFontColor #102e4e
+skinparam SequenceActorBorderColor #1f5182
+skinparam SequenceActorBackgroundColor #e6f1fb
+skinparam FontSize 9
+skinparam ParticipantPadding 8
+skinparam BoxPadding 5
+skinparam SequenceMessageAlign center
+skinparam MaxMessageSize 100
+
+actor Usuario as U
+participant "OutfitControlador\n(JavaFX)" as JFX
+participant "OutfitServicio\n(OkHttp)" as OS
+participant "OutfitController\n(Spring Boot)" as API
+participant "GeneradorOutfit\nService" as GOS
+participant "PrendaDAO\n(JDBC)" as DAO
+database "MySQL" as DB
+
+U -> JFX : Selecciona filtros
+U -> JFX : Categorías opcionales
+U -> JFX : Pulsa Generar
+
+activate JFX
+JFX -> JFX : "Generando outfits..."
+JFX -> OS : generar(usuarioId, filtros)
+activate OS
+OS -> API : POST /api/outfits/generar
+activate API
+API -> GOS : generar(solicitud)
+activate GOS
+GOS -> GOS : Determina categorías base
+
+loop Por cada categoría
+    GOS -> DAO : llamarProcedimiento\n(usuarioId, categoriaId, filtros)
+    activate DAO
+    DAO -> DB : CALL generarOutfit(...)
+    activate DB
+    DB --> DAO : Prendas coincidentes
+    deactivate DB
+    DAO --> GOS : List<PrendaFiltroDTO>
+    deactivate DAO
+    GOS -> GOS : Construye OutfitCarruselDTO
+end
+
+GOS --> API : List<OutfitCarruselDTO>
+deactivate GOS
+API --> OS : 200 OK (JSON)
+deactivate API
+OS --> JFX : List<OutfitCarruselDTO>
+deactivate OS
+JFX -> JFX : Platform.runLater()
+JFX --> U : Muestra carruseles
+deactivate JFX
+
+opt Guardar outfit
+    U -> JFX : Pulsa Guardar
+    JFX --> U : Pide nombre
+    U -> JFX : Confirma nombre
+    activate JFX
+    JFX -> OS : guardar(usuarioId, nombre, prendas)
+    activate OS
+    OS -> API : POST /api/outfits/guardar
+    activate API
+    API -> DB : INSERT outfit + outfit_prenda
+    API --> OS : 200 OK
+    deactivate API
+    OS --> JFX : Outfit guardado
+    deactivate OS
+    JFX --> U : Confirmación
+    deactivate JFX
+end
+@enduml

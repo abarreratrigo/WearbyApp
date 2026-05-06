@@ -1,0 +1,92 @@
+@startuml
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam EntityBorderColor #1f5182
+skinparam EntityBackgroundColor #e6f1fb
+skinparam EntityHeaderBackgroundColor #1f5182
+skinparam EntityHeaderFontColor white
+skinparam ArrowColor #444444
+skinparam FontSize 12
+
+entity "usuario" as U {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(100)
+    email : VARCHAR(150) <<UNIQUE>>
+    contrasena : VARCHAR(255)
+    rol : ENUM('usuario','admin')
+    activo : TINYINT(1)
+}
+
+entity "prenda" as P {
+    * id : INT <<PK, AI>>
+    --
+    * id_usuario : INT <<FK>>
+    nombre : VARCHAR(100)
+    imagen_url : VARCHAR(500)
+    favorito : TINYINT(1)
+    notas : TEXT
+    * id_categoria : INT <<FK>>
+    * id_color : INT <<FK>>
+    * id_estilo : INT <<FK>>
+    * id_formalidad : INT <<FK>>
+    * id_temporada : INT <<FK>>
+}
+
+entity "outfit" as O {
+    * id : INT <<PK, AI>>
+    --
+    * id_usuario : INT <<FK>>
+    nombre : VARCHAR(100)
+    fecha_generacion : DATETIME
+}
+
+entity "outfit_prenda" as OP {
+    * id_outfit : INT <<FK>>
+    * id_prenda : INT <<FK>>
+}
+
+entity "categoria" as CA {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(50)
+}
+
+entity "color" as CO {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(50)
+}
+
+entity "estilo" as ES {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(50)
+}
+
+entity "formalidad" as FO {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(50)
+}
+
+entity "temporada" as TE {
+    * id : INT <<PK, AI>>
+    --
+    nombre : VARCHAR(50)
+}
+
+' Relaciones principales
+U ||--o{ P : "1:N\ntiene"
+U ||--o{ O : "1:N\ngenera"
+O ||--o{ OP : "1:N\ncontiene"
+P ||--o{ OP : "1:N\npertenece a"
+
+' Relaciones con características
+CA ||--o{ P : "1:N"
+CO ||--o{ P : "1:N"
+ES ||--o{ P : "1:N"
+FO ||--o{ P : "1:N"
+TE ||--o{ P : "1:N"
+
+@enduml

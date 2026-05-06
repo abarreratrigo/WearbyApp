@@ -1,0 +1,71 @@
+@startuml
+title Secuencia 1 - Iniciar sesión
+
+skinparam backgroundColor white
+skinparam SequenceArrowColor #444444
+skinparam SequenceLifeLineBorderColor #1f5182
+skinparam SequenceParticipantBorderColor #1f5182
+skinparam SequenceParticipantBackgroundColor #e6f1fb
+skinparam SequenceParticipantFontColor #102e4e
+skinparam SequenceActorBorderColor #1f5182
+skinparam SequenceActorBackgroundColor #e6f1fb
+skinparam FontSize 12
+
+actor Usuario
+participant "LoginControlador\n(JavaFX)" as JFX
+participant "UsuarioServicio\n(OkHttp)" as US
+participant "UsuarioController\n(Spring Boot)" as API
+participant "UsuarioService\n(Spring)" as SRV
+database "MySQL" as DB
+
+Usuario -> JFX : Introduce email y contraseña
+Usuario -> JFX : Pulsa Iniciar sesión
+
+activate JFX
+JFX -> JFX : Valida campos no vacíos
+
+alt Campos vacíos
+    JFX --> Usuario : Muestra mensaje de error
+else Campos rellenos
+    JFX -> JFX : Deshabilita botón\n(evita doble envío)
+    JFX -> US : login(email, contrasena)
+    activate US
+    US -> US : Serializa credenciales a JSON
+    US -> API : POST /api/usuarios/login\n{email, contrasena}
+    activate API
+
+    API -> SRV : login(email, contrasena)
+    activate SRV
+    SRV -> DB : SELECT * FROM usuario\nWHERE email = ?
+    activate DB
+    DB --> SRV : Usuario encontrado
+    deactivate DB
+    SRV -> SRV : BCrypt.matches()\nverifica contraseña
+
+    alt Credenciales correctas
+        SRV --> API : Usuario autenticado
+        API --> US : 200 OK · usuario (JSON)
+        US --> JFX : Usuario deserializado
+        JFX -> JFX : SesionUsuario.iniciar(usuario)
+
+        alt Rol = admin
+            JFX --> Usuario : Navega a panel\nde administrador
+        else Rol = usuario
+            JFX --> Usuario : Navega a pantalla\nprincipal (armario)
+        end
+
+    else Credenciales incorrectas
+        SRV --> API : null
+        API --> US : 401 Unauthorized
+        US --> JFX : null
+        JFX --> Usuario : Muestra "Email o\ncontraseña incorrectos"
+    end
+
+    deactivate SRV
+    deactivate API
+    deactivate US
+end
+
+JFX -> JFX : Habilita botón de nuevo
+deactivate JFX
+@enduml
