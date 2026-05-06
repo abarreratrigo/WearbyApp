@@ -19,7 +19,8 @@ public class ValidacionLoginTest {
         if (contrasena == null || contrasena.isEmpty()){
             return "La contraseña no puede estar vacía";
         }
-        if (!email.contains("@")){
+        if (!email.contains("@") || email.startsWith("@") ||
+                email.endsWith("@") || email.contains(" ")) {
             return "El email no tiene un formato válido";
         }
         return null;
@@ -46,7 +47,7 @@ public class ValidacionLoginTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"noesuncorreo", "sin-arrroba.com", "espacios email@test.com"})
+    @ValueSource(strings = {"noesuncorreo", "sin-arrroba.com", "sindominio@"})
     void validar_conEmailInvalido_debeRetornarError(String emailInvalido){
         String error = validarLogin(emailInvalido, "1234");
         assertNotNull(error);
