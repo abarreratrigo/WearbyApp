@@ -67,7 +67,7 @@ public class UsuarioServicio extends ApiService{
     }
 
     public List<Usuario> getUsuarios() throws IOException {
-        Response r = get("/usuarios/");
+        Response r = get("/usuarios");
         if (r.isSuccessful() && r.body() != null) {
             Type tipo = new TypeToken<List<Usuario>>(){}.getType();
             return gson.fromJson(r.body().string(), tipo);

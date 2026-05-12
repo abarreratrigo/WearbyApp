@@ -45,4 +45,11 @@ public class PrendaServicio extends ApiService{
         Response respuesta = delete("/prendas/" + prendaId);
         return respuesta.isSuccessful();
     }
+
+    public void editar(int id, String json) throws IOException{
+        Response respuesta = put("/prendas/" + id, json);
+        if (!respuesta.isSuccessful()){
+            throw new IOException("Error al editar la prenda" + respuesta.code());
+        }
+    }
 }

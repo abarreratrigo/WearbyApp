@@ -56,6 +56,18 @@ public class PrendaController {
         return ResponseEntity.ok(prendaService.toggleFavorito(id));
     }
 
+    //PUT /api/prendas/{id}
+    @PutMapping("/{id}")
+    public ResponseEntity<Prenda> editar(
+            @PathVariable Integer id,
+            @RequestBody Prenda prendaActualizada) {
+        try {
+            return ResponseEntity.ok(prendaService.editar(id, prendaActualizada));
+        } catch (EntityNotFoundException e){
+            return  ResponseEntity.notFound().build();
+        }
+    }
+
     // DELETE /api/prendas/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {

@@ -51,7 +51,7 @@
               alignment="CENTER" spacing="6">
             <Label text=" Outfits generados"
                    styleClass="label-muted" />
-            <Label fx:id="totalOufitsLabel"
+            <Label fx:id="totalOutfitsLabel"
                    text="..."
                    style="-fx-font-size: 42px;
                           -fx-font-weight: bold;

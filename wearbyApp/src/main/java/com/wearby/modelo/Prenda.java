@@ -26,5 +26,14 @@ public class Prenda {
     public Formalidad getFormalidad() {return formalidad;}
     public Temporada getTemporada() {return temporada;}
     public String getNotas() {return notas;}
+    public void setId(Integer id) { this.id = id; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setImageUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+    public void setColor(com.wearby.modelo.Color color) { this.color = color; }
+    public void setEstilo(Estilo estilo) { this.estilo = estilo; }
+    public void setFormalidad(Formalidad formalidad) { this.formalidad = formalidad; }
+    public void setTemporada(Temporada temporada) { this.temporada = temporada; }
+    public void setNotas(String notas) { this.notas = notas; }
     public void setFavorito(Boolean favorito) {this.favorito = favorito;}
 }

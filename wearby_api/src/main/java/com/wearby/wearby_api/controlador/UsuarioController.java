@@ -5,6 +5,7 @@ import com.wearby.wearby_api.servicio.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final PasswordEncoder encoder;
 
     // POST /api/usuarios/registro
     @PostMapping("/registro")
@@ -74,4 +76,11 @@ public class UsuarioController {
         usuarioService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+    // Endpoint temporal para generar hash — ELIMINAR DESPUÉS
+    @GetMapping("/hash/{contrasena}")
+    public String generarHash(@PathVariable String contrasena) {
+        return encoder.encode(contrasena);
+    }
+
+
 }

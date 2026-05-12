@@ -27,10 +27,8 @@ public class CaracteristicasServicio extends ApiService{
 
     public List<Estilo> getEstilos() throws IOException {
         Response r = get("/caracteristicas/estilos");
-        System.out.println("Estilos código: " + r.code());
         if (r.isSuccessful() && r.body() != null) {
             String cuerpo = r.body().string();
-            System.out.println("Estilos cuerpo: " + cuerpo);
             Type tipo = new TypeToken<List<Estilo>>(){}.getType();
             return gson.fromJson(cuerpo, tipo);
         }

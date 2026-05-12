@@ -41,30 +41,37 @@ public class AdminEstadisticasControlador implements Initializable {
     private void configurarTabla() {
         colUsuario.setCellValueFactory( d ->
                 new SimpleStringProperty(d.getValue().getNombre()));
-        colTotal.setCellValueFactory( d ->
-                new SimpleStringProperty(d.getValue().getCategoria()));
+        colTotal.setCellValueFactory(d ->
+                new SimpleStringProperty(String.valueOf(d.getValue().getTotal())));
     }
 
-    private void cargarEstadisticas(){
-        new Thread(() -> {
-            try {
-                Map<String, Integer> stats = adminServicio.getEstadisticas();
-                var prendasPorUsuario = adminServicio.getPrendasPorUsuario();
+    private void cargarEstadisticas() {
+        Platform.runLater(() -> {
+            new Thread(() -> {
+                try {
+                    Map<String, Integer> stats = adminServicio.getEstadisticas();
+                    var prendasPorUsuario = adminServicio.getPrendasPorUsuario();
 
-                Platform.runLater(() -> {
-                    totalUsuariosLabel.setText(
-                            String.valueOf(stats.getOrDefault("totalUsuarios", 0)));
-                    totalPrendasLabel.setText(
-                            String.valueOf(stats.getOrDefault("totalPrendas", 0)));
-                    totalOutfitsLabel.setText(
-                            String.valueOf(stats.getOrDefault("totalOutfits", 0)));
-                    tablaPrendasUsuario.getItems().setAll(prendasPorUsuario);
-                });
-            } catch (Exception e) {
-                Platform.runLater(() ->
-                        Alertas.error("Error", "No se pudieron cargar las estadísticas."));
-            }
-        }).start();
+                    Platform.runLater(() -> {
+                        if (totalUsuariosLabel != null)
+                            totalUsuariosLabel.setText(
+                                    String.valueOf(stats.getOrDefault("totalUsuarios", 0)));
+                        if (totalPrendasLabel != null)
+                            totalPrendasLabel.setText(
+                                    String.valueOf(stats.getOrDefault("totalPrendas", 0)));
+                        if (totalOutfitsLabel != null)
+                            totalOutfitsLabel.setText(
+                                    String.valueOf(stats.getOrDefault("totalOutfits", 0)));
+                        if (tablaPrendasUsuario != null)
+                            tablaPrendasUsuario.getItems().setAll(prendasPorUsuario);
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Platform.runLater(() ->
+                            Alertas.error("Error", "No se pudieron cargar las estadísticas: " + e.getMessage()));
+                }
+            }).start();
+        });
     }
 
 }

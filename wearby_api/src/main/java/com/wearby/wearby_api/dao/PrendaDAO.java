@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * DAO de prendas con acceso directo a la BD mediante JDBC.
@@ -168,6 +170,28 @@ public class PrendaDAO {
                     dto.setColor(rs.getString("color"));
                     resultado.add(dto);
                 }
+            }
+        }
+        return resultado;
+    }
+
+    public List<Map<String, Object>> getPrendasPorUsuario() throws SQLException {
+        String sql = """
+        SELECT u.nombre, COUNT(p.id) as total
+        FROM usuario u
+        LEFT JOIN prenda p ON p.id_usuario = u.id
+        GROUP BY u.id, u.nombre
+        ORDER BY total DESC
+    """;
+        List<Map<String, Object>> resultado = new ArrayList<>();
+        try (Connection conn = conexionDB.getConexion();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Map<String, Object> fila = new HashMap<>();
+                fila.put("nombre", rs.getString("nombre"));
+                fila.put("total", rs.getInt("total"));
+                resultado.add(fila);
             }
         }
         return resultado;

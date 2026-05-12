@@ -5,6 +5,7 @@ module wearbyApp {
     requires com.google.gson;
     requires okhttp3;
     requires java.sql;
+    requires java.desktop;
 
     exports com.wearby to javafx.graphics;
 

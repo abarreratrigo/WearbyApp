@@ -25,11 +25,14 @@ public class AdminServicio extends ApiService {
         return Map.of();
     }
 
-    public List<PrendaFiltroDTO> getPrendasPorUsuario() throws IOException{
+    public List<PrendaFiltroDTO> getPrendasPorUsuario() throws IOException {
         Response r = get("/admin/prendas-por-usuario");
-        if (r.isSuccessful() && r.body() != null){
+        System.out.println("PrendasPorUsuario código: " + r.code());
+        if (r.isSuccessful() && r.body() != null) {
+            String cuerpo = r.body().string();
+            System.out.println("PrendasPorUsuario cuerpo: " + cuerpo);
             Type tipo = new TypeToken<List<PrendaFiltroDTO>>(){}.getType();
-            return gson.fromJson(r.body().string(), tipo);
+            return gson.fromJson(cuerpo, tipo);
         }
         return List.of();
     }

@@ -105,4 +105,36 @@ public class PrendaService {
         imagenService.eliminarImagen(prenda.getImagenUrl());
         prendaRepository.deleteById(id);
     }
+
+    public Prenda editar(Integer id, Prenda prendaActualizada) {
+        Prenda prenda = prendaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prenda no encontrada"));
+
+        prenda.setNombre(prendaActualizada.getNombre());
+        prenda.setNotas(prendaActualizada.getNotas());
+        prenda.setFavorito(prendaActualizada.getFavorito());
+
+        if (prendaActualizada.getCategoria() != null) {
+            prenda.setCategoria(categoriaRepository.findById(
+                    prendaActualizada.getCategoria().getId()).orElse(null));
+        }
+        if (prendaActualizada.getColor() != null) {
+            prenda.setColor(colorRepository.findById(
+                    prendaActualizada.getColor().getId()).orElse(null));
+        }
+        if (prendaActualizada.getEstilo() != null) {
+            prenda.setEstilo(estiloRepository.findById(
+                    prendaActualizada.getEstilo().getId()).orElse(null));
+        }
+        if (prendaActualizada.getFormalidad() != null) {
+            prenda.setFormalidad(formalidadRepository.findById(
+                    prendaActualizada.getFormalidad().getId()).orElse(null));
+        }
+        if (prendaActualizada.getTemporada() != null) {
+            prenda.setTemporada(temporadaRepository.findById(
+                    prendaActualizada.getTemporada().getId()).orElse(null));
+        }
+
+        return prendaRepository.save(prenda);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,5 +27,11 @@ public class AdminController {
                 "totalPrendas", stats[1],
                 "totalOutfits", stats[2]
         ));
+    }
+
+    // GET /api/admin/prendas-por-usuario
+    @GetMapping("/prendas-por-usuario")
+    public ResponseEntity<List<Map<String, Object>>> getPrendasPorUsuario() throws SQLException {
+        return ResponseEntity.ok(prendaDAO.getPrendasPorUsuario());
     }
 }

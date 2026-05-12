@@ -202,7 +202,19 @@ public class ArmarioControlador implements Initializable {
         btnEliminar.setFocusTraversable(false);
         btnEliminar.setOnAction(e -> onEliminar(prenda, tarjeta));
 
-        acciones.getChildren().addAll(btnFavorito, btnEliminar);
+        Button btnEditar = new Button("✏");
+        btnEditar.setStyle(
+                "-fx-background-color: #f0f4ff;" +
+                "-fx-text-fill: #1f5182;" +
+                "-fx-cursor: hand;" +
+                "-fx-font-size: 14px;" +
+                "-fx-background-radius: 6;" +
+                "-fx-padding: 4 8 4 8;"
+        );
+        btnEditar.setFocusTraversable(false);
+        btnEditar.setOnAction(e -> onEditarPrenda(prenda));
+
+        acciones.getChildren().addAll(btnFavorito, btnEditar, btnEliminar);
         tarjeta.getChildren().addAll(imagenContenedor, nombre, categoria, acciones);
 
         return tarjeta;
@@ -290,6 +302,33 @@ public class ArmarioControlador implements Initializable {
             dialogo.showAndWait();
         } catch (IOException e) {
             Alertas.error("Error", "No se puede abrir el diálogo.");
+        }
+    }
+
+    @FXML
+    private void onEditarPrenda(Prenda prenda) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/EditarPrendaDialogo.fxml")
+            );
+
+            System.out.println("Recurso FXML: " + getClass().getResource("/fxml/EditarPrendaDialogo.fxml"));
+
+            VBox contenido = loader.load();
+            EditarPrendaControlador controlador = loader.getController();
+
+            controlador.setPrenda(prenda);
+
+            controlador.setOnGuardadoExitoso(this::cargarPrendas);
+
+            Stage dialogo = new Stage();
+            dialogo.setTitle("Editar prenda");
+            dialogo.setScene(new javafx.scene.Scene(contenido));
+            dialogo.initOwner(galeriaPane.getScene().getWindow());
+            dialogo.initModality(Modality.WINDOW_MODAL);
+            dialogo.showAndWait();
+        } catch (IOException e) {
+            Alertas.error("Error", "No se puede abrir la ventana de edición." + e.getMessage());
         }
     }
 }
