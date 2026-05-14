@@ -81,6 +81,7 @@
         <columns>
             <TableColumn fx:id="colUsuario" text="Usuario"       prefWidth="300" />
             <TableColumn fx:id="colTotal"   text="Total prendas" prefWidth="150" />
+            <TableColumn fx:id="colOutfits" text="Outfits" prefWidth="120" />
         </columns>
         <placeholder>
             <Label text="No hay datos disponibles"

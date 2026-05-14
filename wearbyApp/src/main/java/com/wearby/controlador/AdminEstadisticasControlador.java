@@ -29,6 +29,7 @@ public class AdminEstadisticasControlador implements Initializable {
     @FXML private TableView<PrendaFiltroDTO> tablaPrendasUsuario;
     @FXML private TableColumn<PrendaFiltroDTO, String> colUsuario;
     @FXML private TableColumn<PrendaFiltroDTO, String> colTotal;
+    @FXML private TableColumn<PrendaFiltroDTO, String> colOutfits;
 
     private final AdminServicio adminServicio = new AdminServicio();
 
@@ -43,6 +44,8 @@ public class AdminEstadisticasControlador implements Initializable {
                 new SimpleStringProperty(d.getValue().getNombre()));
         colTotal.setCellValueFactory(d ->
                 new SimpleStringProperty(String.valueOf(d.getValue().getTotal())));
+        colOutfits.setCellValueFactory(d ->
+                new SimpleStringProperty(String.valueOf(d.getValue().getTotalOutfits())));
     }
 
     private void cargarEstadisticas() {

@@ -32,4 +32,9 @@ public class OutfitController {
     public ResponseEntity<List<Outfit>> getOutfits(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(outfitService.getOutfits(usuarioId));
     }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<Outfit> guardar(@RequestBody Outfit outfit) {
+        return ResponseEntity.ok(outfitService.guardar(outfit));
+    }
 }

@@ -27,7 +27,8 @@ public class UsuarioService {
     public Optional<Usuario> login(String email, String contrasena) {
         Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
         if (usuario.isPresent() &&
-                passwordEncoder.matches(contrasena, usuario.get().getContrasena())) {
+                passwordEncoder.matches(contrasena, usuario.get().getContrasena()) &&
+                Boolean.TRUE.equals(usuario.get().getActivo())) {
             return usuario;
         }
         return Optional.empty();

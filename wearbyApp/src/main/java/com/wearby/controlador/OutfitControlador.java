@@ -40,6 +40,8 @@ public class OutfitControlador implements Initializable {
     private final OutfitServicio outfitServicio = new OutfitServicio();
     private final List<Integer> categoriaIdsOpcionales = new ArrayList<>();
 
+    private List<OutfitCarruselDTO> carruselesActuales = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
         cargarFiltros();
@@ -138,6 +140,25 @@ public class OutfitControlador implements Initializable {
                         estiloId, temporadaId, formalidad,
                         categoriaIdsOpcionales
                 );
+
+                carruselesActuales = carruseles;
+
+                if (!carruseles.isEmpty()) {
+                    List<Integer> prendaIds = carruseles.stream()
+                            .flatMap(c -> c.getPrendas().stream())
+                            .map(PrendaFiltroDTO::getId)
+                            .distinct()
+                            .toList();
+                    try {
+                        outfitServicio.guardar(
+                                SesionUsuario.getInstancia().getId(),
+                                "Outfit generado",
+                                prendaIds
+                        );
+                    } catch (Exception ex) {
+                        System.out.println("No se pudo guardar el outfit: " + ex.getMessage());
+                    }
+                }
 
                 Platform.runLater(() -> {
                     resultadosBox.getChildren().clear();

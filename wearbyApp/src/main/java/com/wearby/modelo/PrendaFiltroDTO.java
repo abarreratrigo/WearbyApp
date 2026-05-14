@@ -16,6 +16,7 @@ public class PrendaFiltroDTO {
     private String temporada;
     private String formalidad;
     private Integer total;
+    private Integer totalOutfits;
 
     public Integer getId(){return id;}
     public String getNombre(){return nombre;}
@@ -24,4 +25,5 @@ public class PrendaFiltroDTO {
     public String getCategoria() {return categoria;}
     public String getColor() {return color;}
     public Integer getTotal() {return total;}
+    public Integer getTotalOutfits() { return totalOutfits; }
 }

@@ -1,0 +1,80 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #F9FBFD
+  BorderColor #3B4A5A
+  ArrowColor #3B4A5A
+}
+skinparam actor {
+  BorderColor #2F3E4E
+  BackgroundColor #FFFFFF
+}
+
+actor Usuario
+actor Administrador
+actor "Sistema API" as API
+
+Administrador --|> Usuario
+
+rectangle Wearby {
+  usecase "Registrarse" as UC1
+  usecase "Iniciar sesión" as UC2
+  usecase "Ver armario" as UC3
+  usecase "Añadir prenda" as UC4
+  usecase "Editar prenda" as UC5
+  usecase "Eliminar prenda" as UC6
+  usecase "Ampliar imagen\nde prenda" as UC7
+  usecase "Marcar/Desmarcar\nfavorito" as UC8
+  usecase "Ver favoritos" as UC9
+  usecase "Generar outfit" as UC10
+  usecase "Guardar outfit" as UC11
+  usecase "Editar perfil" as UC12
+  usecase "Cerrar sesión" as UC13
+
+  usecase "Ver listado de usuarios" as UC14
+  usecase "Activar/Desactivar\nusuario" as UC15
+  usecase "Eliminar usuario" as UC16
+  usecase "Ver estadísticas\ngenerales" as UC17
+  usecase "Gestionar valores de\ncaracterísticas" as UC18
+
+  usecase "Filtrar prendas" as UC19
+  usecase "Priorizar favoritas" as UC20
+  usecase "Componer combinaciones\nválidas" as UC21
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+Usuario --> UC5
+Usuario --> UC6
+Usuario --> UC7
+Usuario --> UC8
+Usuario --> UC9
+Usuario --> UC10
+Usuario --> UC11
+Usuario --> UC12
+Usuario --> UC13
+Usuario --> UC19
+
+Administrador --> UC14
+Administrador --> UC15
+Administrador --> UC16
+Administrador --> UC17
+Administrador --> UC18
+Administrador --> UC13
+Administrador --> UC2
+
+UC3 .> UC19 : <<include>>
+UC9 .> UC8 : <<include>>
+UC10 .> UC20 : <<include>>
+UC10 .> UC21 : <<include>>
+UC11 .> UC10 : <<extend>>
+
+API --> UC10
+API --> UC20
+API --> UC21
+@enduml

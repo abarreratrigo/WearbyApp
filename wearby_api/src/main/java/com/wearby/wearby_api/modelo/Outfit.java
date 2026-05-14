@@ -15,6 +15,9 @@ public class Outfit {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @Transient
+    private Integer idUsuario;
+
     @ManyToOne
     @JoinColumn(name="id_usuario")
     private Usuario usuario;

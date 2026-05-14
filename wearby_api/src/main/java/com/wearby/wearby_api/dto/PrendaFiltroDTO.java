@@ -19,4 +19,5 @@ public class PrendaFiltroDTO {
     private String temporada;
     private String formalidad;
     private String color;
+
 }
