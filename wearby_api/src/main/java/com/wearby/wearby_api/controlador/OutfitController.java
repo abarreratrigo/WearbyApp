@@ -32,17 +32,4 @@ public class OutfitController {
     public ResponseEntity<List<Outfit>> getOutfits(@PathVariable Integer usuarioId) {
         return ResponseEntity.ok(outfitService.getOutfits(usuarioId));
     }
-
-    // POST /api/outfits/guardar
-    @PostMapping("/guardar")
-    public ResponseEntity<Outfit> guardar(@RequestBody Outfit outfit) {
-        return ResponseEntity.ok(outfitService.guardar(outfit));
-    }
-
-    // DELETE /api/outfits/{id}
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
-        outfitService.eliminar(id);
-        return ResponseEntity.noContent().build();
-    }
 }

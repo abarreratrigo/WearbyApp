@@ -58,7 +58,7 @@ public class AdminUsuariosControlador implements Initializable {
 
             {
                 btnToggle.setStyle("-fx-cursor: hand;");
-                btnEliminar.setStyle("-fx-background-color: #e74c3c; " +
+                btnEliminar.setStyle("-fx-background-color: #102e4e; " +
                         "-fx-text-fill: white; -fx-cursor: hand; " +
                         "-fx-background-radius: 4; -fx-padding: 4 8 4 8;");
 
@@ -83,9 +83,9 @@ public class AdminUsuariosControlador implements Initializable {
                         Boolean.TRUE.equals(u.getActivo()) ? "Desactivar" : "Activar");
 
                 btnToggle.setStyle(Boolean.TRUE.equals(u.getActivo()) ?
-                        "-fx-background-color: #f39c12; -fx-text-fill: white; " +
+                        "-fx-background-color: #3c6f90; -fx-text-fill: white; " +
                         "-fx-cursor: hand; -fx-background-radius: 4; -fx-padding: 4 8 4 8;" :
-                        "-fx-background-color: #27ae60; -fx-text-fill: white; " +
+                        "-fx-background-color: #1f5182; -fx-text-fill: white; " +
                         "-fx-cursor: hand; -fx-background-radius: 4; -fx-padding: 4 8 4 8;");
 
                 HBox box = new HBox(8, btnToggle, btnEliminar);

@@ -25,6 +25,10 @@ public class MainApp extends Application {
         );
 
         stage.setTitle("Wearby");
+        javafx.scene.image.Image icono = new javafx.scene.image.Image(
+                MainApp.class.getResourceAsStream("/img/logo.png")
+        );
+        stage.getIcons().add(icono);
         stage.setScene(scene);
         stage.setMinWidth(900);
         stage.setMinHeight(600);

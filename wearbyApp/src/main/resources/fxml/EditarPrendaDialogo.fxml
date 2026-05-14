@@ -1,80 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.wearby.controlador.EditarPrendaControlador"
-      spacing="16" prefWidth="420"
-      style="-fx-background-color: white; -fx-padding: 24;">
+      stylesheets="@../css/estilos.css"
+      spacing="16"
+      prefWidth="500"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
 
-    <Label text="Editar prenda"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1f5182;"/>
+    <!-- Título -->
+    <Label text="Editar prenda" styleClass="titulo" />
 
-    <Label text="Nombre *"
-           style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-    <TextField fx:id="nombreField" promptText="Nombre de la prenda"
-               style="-fx-border-color: #bed4d2; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8;"/>
+    <!-- Nombre -->
+    <VBox spacing="6">
+        <Label text="Nombre" styleClass="label-campo" />
+        <TextField fx:id="nombreField"
+                   promptText="Ej: Camiseta Blanca"
+                   styleClass="campo-texto"
+                   prefWidth="440" />
+    </VBox>
 
+    <!-- Fila: Categoría + Color -->
     <HBox spacing="12">
-        <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label text="Categoría *" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-            <ComboBox fx:id="categoriaCombo" maxWidth="Infinity"
-                      style="-fx-border-color: #bed4d2; -fx-border-radius: 6;"/>
+        <VBox spacing="6">
+            <Label text="Categoría" styleClass="label-campo" />
+            <ComboBox fx:id="categoriaCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
-        <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label text="Color" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-            <ComboBox fx:id="colorCombo" maxWidth="Infinity"
-                      style="-fx-border-color: #bed4d2; -fx-border-radius: 6;"/>
+        <VBox spacing="6">
+            <Label text="Color" styleClass="label-campo" />
+            <ComboBox fx:id="colorCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
     </HBox>
 
+    <!-- Fila: Estilo + Formalidad -->
     <HBox spacing="12">
-        <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label text="Estilo" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-            <ComboBox fx:id="estiloCombo" maxWidth="Infinity"
-                      style="-fx-border-color: #bed4d2; -fx-border-radius: 6;"/>
+        <VBox spacing="6">
+            <Label text="Estilo" styleClass="label-campo" />
+            <ComboBox fx:id="estiloCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
-        <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label text="Formalidad" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-            <ComboBox fx:id="formalidadCombo" maxWidth="Infinity"
-                      style="-fx-border-color: #bed4d2; -fx-border-radius: 6;"/>
+        <VBox spacing="6">
+            <Label text="Formalidad" styleClass="label-campo" />
+            <ComboBox fx:id="formalidadCombo"
+                      prefWidth="210"
+                      styleClass="campo-texto" />
         </VBox>
     </HBox>
 
-    <VBox spacing="4">
-        <Label text="Temporada" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-        <ComboBox fx:id="temporadaCombo" maxWidth="Infinity"
-                  style="-fx-border-color: #bed4d2; -fx-border-radius: 6;"/>
+    <!-- Temporada -->
+    <VBox spacing="6">
+        <Label text="Temporada" styleClass="label-campo" />
+        <ComboBox fx:id="temporadaCombo"
+                  prefWidth="210"
+                  styleClass="campo-texto" />
     </VBox>
 
-    <CheckBox fx:id="favoritoCheck" text="Marcar como favorita"
-              style="-fx-text-fill: #333;"/>
+    <!-- Favorito -->
+    <CheckBox fx:id="favoritoCheck"
+              text="Marcar como favorita"
+              style="-fx-text-fill: #102e4e; -fx-font-size: 13px;" />
 
-    <VBox spacing="4">
-        <Label text="Notas" style="-fx-font-weight: bold; -fx-text-fill: #333;"/>
-        <TextArea fx:id="notasArea" promptText="Notas opcionales..."
-                  prefRowCount="3" wrapText="true"
-                  style="-fx-border-color: #bed4d2; -fx-border-radius: 6; -fx-background-radius: 6;"/>
+    <!-- Notas -->
+    <VBox spacing="6">
+        <Label text="Notas (opcional)" styleClass="label-campo" />
+        <TextArea fx:id="notasArea"
+                  promptText="Añade notas sobre esta prenda..."
+                  prefHeight="80"
+                  prefWidth="440"
+                  styleClass="campo-texto"
+                  wrapText="true" />
     </VBox>
 
+    <!-- Botones acción -->
     <HBox spacing="12" alignment="CENTER_RIGHT">
-        <Button fx:id="btnCancelar" text="Cancelar"
-                onAction="#onCancelar"
-                style="-fx-background-color: #f5f5f5; -fx-text-fill: #555;
-                       -fx-border-radius: 6; -fx-background-radius: 6;
-                       -fx-padding: 8 20 8 20; -fx-cursor: hand;"/>
-        <Button fx:id="btnGuardar" text="Guardar cambios"
-                onAction="#onGuardar"
-                style="-fx-background-color: #1f5182; -fx-text-fill: white;
-                       -fx-border-radius: 6; -fx-background-radius: 6;
-                       -fx-padding: 8 20 8 20; -fx-cursor: hand;
-                       -fx-font-weight: bold;"/>
+        <Button text="Cancelar"
+                style="-fx-background-color: #bed4d2;
+                       -fx-text-fill: #102e4e;
+                       -fx-font-size: 14px;
+                       -fx-padding: 10 20 10 20;
+                       -fx-background-radius: 6;
+                       -fx-border-radius: 6;
+                       -fx-cursor: hand;"
+                onAction="#onCancelar" />
+        <Button fx:id="btnGuardar"
+                text="Guardar cambios"
+                styleClass="btn-primary"
+                onAction="#onGuardar" />
     </HBox>
+
 </VBox>
